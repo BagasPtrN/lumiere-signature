@@ -1,0 +1,2658 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lu'miere — It's a cake o'clock · Jakarta</title>
+<meta name="description" content="Lu'miere Signature. Chiffon Lava Cake, Japanese Roll, Kue Asix, Roti Sobek. Radio Dalam & Pondok Indah Mall 3, Jakarta." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Alfa+Slab+One&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          sans: ['Outfit', 'system-ui', 'sans-serif'],
+          mono: ['JetBrains Mono', 'ui-monospace'],
+        },
+        colors: {
+          cream:  { 50:'#fbf6ec', 100:'#f5ecd9', 200:'#ead9b8' },
+          ink:    { 900:'#1f1812', 800:'#322821', 700:'#4a3c30' },
+          honey:  { 700:'#9a651e', 600:'#b87a26', 500:'#d39646', 200:'#ecd1a3' },
+          mocha:  { 900:'#2a1f17', 800:'#3a2c20' },
+          moss:   { 700:'#3a4a35' },
+          rose:   { 700:'#9a3d3d' },
+        },
+      }
+    }
+  }
+</script>
+
+<style>
+  :root { color-scheme: light; }
+  html { scroll-behavior: smooth; }
+  /* Horizontal-overflow guard. `overflow: clip` does NOT create a scroll
+     container, so position:sticky still works (unlike `overflow: hidden`).
+     Cascade fallback: hidden first (older Safari), clip wins where supported. */
+  html { overflow-x: hidden; overflow-x: clip; }
+  body {
+    background: #fbf6ec;
+    color: #322821;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  .display { font-family: 'Fraunces', serif; font-variation-settings: "opsz" 144, "SOFT" 30; letter-spacing: -0.025em; line-height: 0.94; }
+  .display-italic { font-family: 'Fraunces', serif; font-style: italic; font-variation-settings: "opsz" 144; letter-spacing: -0.018em; }
+
+  .grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 60;
+    opacity: .04; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .reveal { opacity: 0; transform: translate3d(0,14px,0); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); will-change: transform, opacity; }
+  .reveal.in { opacity: 1; transform: translate3d(0,0,0); }
+  .reveal-stagger > * { opacity: 0; transform: translate3d(0,12px,0); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  .reveal-stagger.in > * { opacity: 1; transform: translate3d(0,0,0); }
+  .reveal-stagger.in > *:nth-child(1){ transition-delay: 0ms }
+  .reveal-stagger.in > *:nth-child(2){ transition-delay: 80ms }
+  .reveal-stagger.in > *:nth-child(3){ transition-delay: 160ms }
+  .reveal-stagger.in > *:nth-child(4){ transition-delay: 240ms }
+  .reveal-stagger.in > *:nth-child(5){ transition-delay: 320ms }
+  .reveal-stagger.in > *:nth-child(6){ transition-delay: 400ms }
+  .reveal-stagger.in > *:nth-child(7){ transition-delay: 480ms }
+  .reveal-stagger.in > *:nth-child(8){ transition-delay: 560ms }
+  .reveal-stagger.in > *:nth-child(9){ transition-delay: 640ms }
+
+  .magnet { transition: transform .35s cubic-bezier(.2,.8,.2,1); will-change: transform; }
+  .magnet[data-x] { transform: translate3d(var(--mx,0), var(--my,0), 0); }
+  .press:active { transform: translate3d(0,1px,0) scale(.985); }
+
+  .photo { position: relative; overflow: hidden; border-radius: 6px; background: #ead9b8; }
+  .photo > img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.6s cubic-bezier(.16,1,.3,1); will-change: transform; }
+  .photo:hover > img { transform: scale(1.04); }
+  .photo::after { content:""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(31,24,18,0) 60%, rgba(31,24,18,.18) 100%); mix-blend-mode: multiply; }
+
+  .edge { box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 18px 40px -22px rgba(40,28,12,.18); }
+  .edge-strong { box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 30px 70px -32px rgba(0,0,0,.5); }
+
+  .underline-honey { background-image: linear-gradient(currentColor, currentColor); background-size: 100% 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size .5s cubic-bezier(.16,1,.3,1); }
+  a:hover .underline-honey, .underline-honey:hover { background-size: 100% 2px; }
+
+  .ticker { font-family: 'JetBrains Mono', ui-monospace; letter-spacing: 0; font-size: 11px; color: #6b6055; }
+
+  .field { display: flex; flex-direction: column; gap: .35rem; }
+  .field label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #6b6055; }
+  .field input, .field select, .field textarea {
+    background: transparent; border: 0; border-bottom: 1px solid #d9cfb9;
+    padding: .55rem 0; font: inherit; color: #1f1812;
+    transition: border-color .35s cubic-bezier(.16,1,.3,1);
+    outline: none; width: 100%;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: #b87a26; }
+  .field .help { font-size: 11px; color: #8b8074; }
+  .field .err { font-size: 11px; color: #9a3d3d; }
+
+  .input-box {
+    background: #fbf6ec; border: 1px solid #ead9b8; border-radius: 10px;
+    padding: .65rem .85rem; font: inherit; color: #1f1812; outline: none; width: 100%;
+    transition: border-color .35s cubic-bezier(.16,1,.3,1);
+  }
+  .input-box:focus { border-color: #b87a26; }
+
+  /* Hero video background with inward radial mask */
+  .hero-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.85;
+    /* Inward mask: visible in centre, fades to transparent at edges
+       so it never collides with the page's cream background */
+    -webkit-mask-image: radial-gradient(ellipse 70% 62% at 50% 45%, #000 16%, rgba(0,0,0,0.88) 38%, rgba(0,0,0,0.45) 66%, transparent 92%);
+            mask-image: radial-gradient(ellipse 70% 62% at 50% 45%, #000 16%, rgba(0,0,0,0.88) 38%, rgba(0,0,0,0.45) 66%, transparent 92%);
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    will-change: transform;
+  }
+  /* Cream wash on top, colour-blends the video into the page palette */
+  .hero-video-wash {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      radial-gradient(ellipse 75% 65% at 50% 42%, rgba(251,246,236,0) 22%, rgba(251,246,236,0.5) 68%, #fbf6ec 100%),
+      linear-gradient(180deg, rgba(251,246,236,0.35) 0%, rgba(251,246,236,0) 22%, rgba(251,246,236,0) 70%, #fbf6ec 100%);
+  }
+  .hero-stage { position: relative; z-index: 2; }
+
+  /* Frost glass panel — Liquid Glass treatment per taste-skill */
+  .hero-glass {
+    background: rgba(251,246,236,0.72);
+    -webkit-backdrop-filter: blur(32px) saturate(125%);
+            backdrop-filter: blur(32px) saturate(125%);
+    border: 1px solid rgba(255,255,255,0.65);
+    border-radius: 28px;
+    padding: 36px 40px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.75),
+      inset 0 0 0 1px rgba(255,255,255,0.10),
+      0 30px 70px -24px rgba(40,28,12,0.28);
+  }
+  @media (min-width: 768px) {
+    .hero-glass { padding: 44px 48px; border-radius: 32px; }
+  }
+  .hero-glass .lm-wrap img,
+  .hero-glass .lm-wrap svg { display: block; }
+
+  /* Hero deck — stacked product cards that auto-shuffle in 3D */
+  .hero-deck {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 4 / 5;
+    margin-left: auto;
+    perspective: 1300px;
+    perspective-origin: 50% 30%;
+  }
+  .hero-deck-card {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    text-decoration: none; color: inherit;
+    background: rgba(251,246,236,0.95);
+    -webkit-backdrop-filter: blur(14px) saturate(115%);
+            backdrop-filter: blur(14px) saturate(115%);
+    border: 1px solid rgba(255,255,255,0.65);
+    border-radius: 22px;
+    padding: 12px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.7),
+      0 30px 60px -22px rgba(40,28,12,0.32);
+    transform-style: preserve-3d;
+    transition:
+      transform .95s cubic-bezier(.16,1,.3,1),
+      opacity .85s cubic-bezier(.16,1,.3,1),
+      box-shadow .85s cubic-bezier(.16,1,.3,1);
+    will-change: transform, opacity;
+    cursor: pointer;
+  }
+  .hero-deck-card .photo {
+    border-radius: 14px;
+    flex: 1;                /* photo stretches to fill card height */
+    min-height: 0;          /* allow flex shrinking */
+  }
+  .hero-deck-card .deck-meta {
+    padding: 14px 10px 4px;
+    flex: 0 0 auto;
+  }
+  /* Layer positions — front, mid, back */
+  .hero-deck-card[data-pos="0"] {
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+    opacity: 1; z-index: 3;
+  }
+  .hero-deck-card[data-pos="1"] {
+    transform: translate3d(13px, 14px, -70px) rotateY(-6deg) scale(0.95);
+    opacity: 0.82; z-index: 2;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.55),
+      0 22px 48px -22px rgba(40,28,12,0.26);
+  }
+  .hero-deck-card[data-pos="2"] {
+    transform: translate3d(26px, 28px, -140px) rotateY(-10deg) scale(0.90);
+    opacity: 0.58; z-index: 1;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.4),
+      0 14px 40px -22px rgba(40,28,12,0.2);
+  }
+  /* Exit animation: flick out to upper-left, swing forward */
+  .hero-deck-card[data-pos="-1"] {
+    transform: translate3d(-160%, -10%, 240px) rotateY(28deg) rotateZ(-14deg) scale(0.92);
+    opacity: 0; z-index: 4;
+    transition:
+      transform .85s cubic-bezier(.45,0,.2,1),
+      opacity .55s cubic-bezier(.45,0,.2,1);
+  }
+  /* Subtle hover lift on the front card only */
+  .hero-deck-card[data-pos="0"]:hover {
+    transform: translate3d(0, -6px, 20px) rotateY(0deg) scale(1.01);
+  }
+  /* Tap dot indicator below deck (shows current index) */
+  .hero-deck-dots {
+    margin-left: auto; margin-top: 18px;
+    display: flex; gap: 6px; justify-content: flex-end;
+  }
+  .hero-deck-dot {
+    width: 18px; height: 2px; border-radius: 2px;
+    background: rgba(31,24,18,0.18);
+    transition: background .4s ease, width .4s ease;
+  }
+  .hero-deck-dot.is-active { background: #b87a26; width: 28px; }
+
+  /* Scroll-tell section — full-bleed video bg, text overlay, frame-by-frame scrub */
+  .scroll-tell {
+    position: relative;
+    /* Section bg: dark cinematic feel, fades to cream at bottom 35%
+       so transition into next (cream) section is seamless — no hard black cut.
+       NOTE: do NOT use overflow:clip/hidden here, it breaks position:sticky on iOS */
+    background: linear-gradient(180deg, #1f1812 0%, #1f1812 60%, #2b2620 78%, #fbf6ec 100%);
+  }
+  .scroll-tell-sticky {
+    position: sticky; top: 0;
+    /* Use 100vh (= lvh on iOS, the largest/URL-bar-collapsed viewport size).
+       This way the sticky always covers full screen even when URL bar is visible
+       (overflow below visible viewport is hidden naturally). */
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .scroll-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;          /* full bleed background */
+    pointer-events: none;
+    z-index: 0;
+    display: block;
+    background: #1f1812;        /* fallback colour — matches section, no flash */
+  }
+  /* Vignette overlay — light edge fade only, video stays clearly visible */
+  .scroll-tell-vignette {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      radial-gradient(ellipse 100% 90% at 50% 50%, rgba(31,24,18,0) 55%, rgba(31,24,18,0.4) 100%),
+      linear-gradient(180deg, rgba(31,24,18,0.25) 0%, rgba(31,24,18,0) 12%, rgba(31,24,18,0) 78%, rgba(31,24,18,0.35) 100%);
+  }
+  .scroll-text-stack {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding: 0 24px 18vh;
+    pointer-events: none;
+  }
+  @media (min-width: 768px) {
+    .scroll-text-stack { padding: 0 40px 16vh; }
+  }
+  .scroll-text {
+    position: absolute; left: 50%; bottom: 14vh;
+    transform: translate(-50%, 0);
+    width: calc(100% - 48px); max-width: 920px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1);
+    pointer-events: none;
+    will-change: opacity, transform;
+  }
+  @media (min-width: 768px) { .scroll-text { bottom: 16vh; max-width: 960px; } }
+  .scroll-text.is-prev    { transform: translate(-50%, -32px); }
+  .scroll-text.is-active  { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+  .scroll-text.is-next    { transform: translate(-50%, 32px); }
+  .scroll-text h2 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144;
+    letter-spacing: -0.022em;
+    line-height: 0.98;
+    font-size: clamp(40px, 6vw, 84px);
+    color: #fbf6ec;
+    /* Multi-layer halo: tight black edge, soft glow, far diffusion — readable on any frame */
+    text-shadow:
+      0 0 1px rgba(0,0,0,0.95),
+      0 0 6px rgba(0,0,0,0.7),
+      0 2px 16px rgba(0,0,0,0.6),
+      0 0 40px rgba(0,0,0,0.45);
+  }
+  .scroll-text .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', ui-monospace;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #f5d59a;
+    text-shadow:
+      0 0 4px rgba(0,0,0,0.85),
+      0 1px 8px rgba(0,0,0,0.7);
+  }
+  .scroll-text .badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 9999px; background: #b87a26;
+    box-shadow: 0 0 8px rgba(0,0,0,0.6);
+  }
+  .scroll-text p.lead {
+    margin: 22px auto 0;
+    font-size: 16px; line-height: 1.65; color: #fbf6ec;
+    max-width: 58ch;
+    text-shadow:
+      0 0 1px rgba(0,0,0,0.95),
+      0 0 4px rgba(0,0,0,0.7),
+      0 1px 12px rgba(0,0,0,0.6);
+  }
+  /* Progress bars at bottom */
+  .scroll-tell-progress {
+    position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%);
+    display: flex; gap: 8px; z-index: 4;
+  }
+  .scroll-tell-progress .pdot {
+    width: 36px; height: 2px; border-radius: 2px;
+    background: rgba(251,246,236,0.22);
+    transition: background .4s ease, width .4s ease;
+  }
+  .scroll-tell-progress .pdot.is-active { background: #f0c178; width: 56px; }
+
+  /* Hero header strip + scroll hint — all centered */
+  .hero-strip {
+    position: absolute; left: 0; right: 0; z-index: 3;
+    display: flex; justify-content: center; align-items: center;
+    padding: 18px 24px; pointer-events: none;
+    font-family: 'JetBrains Mono', ui-monospace; font-size: 10.5px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: #6b6055;
+    gap: 18px;
+  }
+  @media (min-width: 768px) { .hero-strip { padding: 22px 40px; gap: 22px; } }
+  .hero-strip > * { pointer-events: auto; }
+  .hero-strip .sep { opacity: 0.35; }
+
+  .hero-scroll-hint {
+    position: absolute; left: 50%; bottom: 22px; z-index: 3;
+    transform: translateX(-50%);
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', ui-monospace; font-size: 10.5px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: #6b6055;
+  }
+  @media (min-width: 768px) { .hero-scroll-hint { bottom: 28px; } }
+  .hero-scroll-hint .arrow {
+    display: inline-block; width: 28px; height: 1px; background: #6b6055; position: relative;
+    animation: scrollPulse 2.4s ease-in-out infinite;
+  }
+  .hero-scroll-hint .arrow::after {
+    content: ''; position: absolute; right: 0; top: -3px;
+    border-left: 6px solid #6b6055; border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;
+  }
+  @keyframes scrollPulse { 0%,100%{ transform: translateX(0); } 50%{ transform: translateX(6px); } }
+
+  .orb {
+    position: absolute; width: 520px; height: 520px; border-radius: 9999px; pointer-events: none;
+    background: radial-gradient(circle at 30% 30%, rgba(184,122,38,.22), rgba(184,122,38,0) 60%);
+    filter: blur(20px);
+    animation: float 14s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes float { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(40px,-30px,0) scale(1.05); } }
+
+  .dot { position: relative; display: inline-block; width: 7px; height: 7px; border-radius: 9999px; background:#3a4a35; }
+  .dot::after { content:""; position:absolute; inset:-4px; border-radius:9999px; box-shadow: 0 0 0 0 rgba(58,74,53,.45); animation: pulse 2.4s cubic-bezier(.16,1,.3,1) infinite; }
+  @keyframes pulse { 0%{ box-shadow: 0 0 0 0 rgba(58,74,53,.5);} 70%{ box-shadow:0 0 0 14px rgba(58,74,53,0);} 100%{ box-shadow: 0 0 0 0 rgba(58,74,53,0);} }
+
+  .marquee-track { display: flex; gap: 5rem; white-space: nowrap; animation: marquee 38s linear infinite; will-change: transform; }
+  @keyframes marquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+  .marquee-pause:hover .marquee-track { animation-play-state: paused; }
+
+  /* Clock-mark logo */
+  .clockmark { position: relative; width: 30px; height: 30px; }
+  .clockmark::before {
+    content:""; position:absolute; inset:0; border-radius:9999px;
+    background: conic-gradient(from -10deg, #b87a26 0 280deg, transparent 280deg 360deg);
+    -webkit-mask: radial-gradient(circle, transparent 9px, #000 10px);
+            mask: radial-gradient(circle, transparent 9px, #000 10px);
+  }
+  .clockmark::after {
+    content:""; position:absolute; left:50%; top:50%; width:2px; height:9px;
+    background:#b87a26; transform: translate(-50%, -100%) rotate(38deg); transform-origin: bottom center; border-radius: 1px;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 28px; left: 50%; transform: translate(-50%, 60px);
+    background: #1f1812; color: #fbf6ec; padding: 12px 18px; border-radius: 999px;
+    font-size: 13px; box-shadow: 0 18px 40px -10px rgba(0,0,0,.4); z-index: 80;
+    opacity: 0; transition: opacity .3s ease, transform .45s cubic-bezier(.16,1,.3,1);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .toast.in { opacity: 1; transform: translate(-50%, 0); }
+
+  /* Modal */
+  .modal-back {
+    position: fixed; inset: 0; background: rgba(31,24,18,.6); z-index: 70;
+    display: grid; place-items: center;
+    padding: max(20px, 4vh) 18px;
+    opacity: 0; transition: opacity .25s ease;
+    overflow-y: auto;
+  }
+  .modal-back.in { opacity: 1; }
+  .modal {
+    background: #fbf6ec; border-radius: 22px;
+    max-width: 600px; width: 100%;
+    max-height: calc(100dvh - max(40px, 8vh));
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    transform: scale(.97); transition: transform .35s cubic-bezier(.16,1,.3,1);
+    box-shadow: 0 30px 80px -22px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.55);
+  }
+  .modal-back.in .modal { transform: scale(1); }
+  .modal > form { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+  .modal-head {
+    position: relative;
+    padding: 26px 56px 18px 28px;
+    border-bottom: 1px solid rgba(31,24,18,.06);
+  }
+  .modal-body {
+    padding: 24px 28px 28px;
+    overflow-y: auto;
+    flex: 1; min-height: 0;
+    overscroll-behavior: contain;
+  }
+  .modal-foot {
+    padding: 14px 20px;
+    border-top: 1px solid rgba(31,24,18,.08);
+    background: rgba(251,246,236,.85);
+    backdrop-filter: blur(8px);
+    display: flex; justify-content: flex-end; align-items: center; gap: 10px;
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 34px; height: 34px; border-radius: 999px;
+    display: grid; place-items: center;
+    color: #4a3c30; cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+  }
+  .modal-close:hover { background: #f5ecd9; color: #1f1812; }
+
+  /* Toggle pill (for in-form on/off chips) */
+  .toggle-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px; border-radius: 999px;
+    border: 1px solid #ead9b8; background: #fbf6ec;
+    font-size: 13px; cursor: pointer; user-select: none;
+    transition: background .25s ease, border-color .25s ease, color .25s ease, transform .15s ease;
+  }
+  .toggle-pill input { position: absolute; opacity: 0; pointer-events: none; }
+  .toggle-pill .tick { width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid #c2b59a; display: grid; place-items: center; transition: background .2s ease, border-color .2s ease; }
+  .toggle-pill .tick svg { opacity: 0; transition: opacity .2s ease; }
+  .toggle-pill:has(input:checked) { background: #1f1812; border-color: #1f1812; color: #fbf6ec; }
+  .toggle-pill:has(input:checked) .tick { background: #b87a26; border-color: #b87a26; }
+  .toggle-pill:has(input:checked) .tick svg { opacity: 1; }
+  .toggle-pill:active { transform: scale(.97); }
+
+  /* Cart count badge */
+  .badge {
+    display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px;
+    padding: 0 5px; border-radius: 999px; background: #b87a26; color: #fbf6ec;
+    font-size: 10px; font-weight: 600; font-variant-numeric: tabular-nums;
+  }
+
+  /* Tabs */
+  .tab { padding: .55rem 1rem; border-radius: 999px; font-size: 13px; transition: background .25s ease, color .25s ease; cursor: pointer; }
+  .tab.active { background: #1f1812; color: #fbf6ec; }
+  .tab:not(.active):hover { background: #f5ecd9; }
+
+  /* Status pill */
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 500; }
+  .pill-pending { background: #f5ecd9; color: #9a651e; }
+  .pill-confirmed { background: #e0eadb; color: #3a4a35; }
+  .pill-completed { background: #1f1812; color: #ecd1a3; }
+  .pill-cancelled { background: #f3dada; color: #9a3d3d; }
+
+  /* Status select + dot — admin order management visual cues */
+  .status-cell {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 4px 10px 4px 4px;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    transition: background .25s ease, border-color .25s ease;
+  }
+  .status-dot {
+    width: 10px; height: 10px; border-radius: 9999px;
+    display: inline-block; flex-shrink: 0;
+    transition: background .3s ease, box-shadow .3s ease;
+  }
+  .status-dot[data-status="pending"]   { background: #b87a26; box-shadow: 0 0 0 3px rgba(184,122,38,0.18); }
+  .status-dot[data-status="confirmed"] { background: #5a7344; box-shadow: 0 0 0 3px rgba(90,115,68,0.18); }
+  .status-dot[data-status="completed"] { background: #1f1812; box-shadow: 0 0 0 3px rgba(31,24,18,0.18); }
+  .status-dot[data-status="cancelled"] { background: #9a3d3d; box-shadow: 0 0 0 3px rgba(154,61,61,0.18); }
+  .status-cell[data-status="pending"]   { background: #f5ecd9; border-color: #d4a85a; }
+  .status-cell[data-status="confirmed"] { background: #e0eadb; border-color: #8aa478; }
+  .status-cell[data-status="completed"] { background: #2b2620; border-color: #1f1812; }
+  .status-cell[data-status="cancelled"] { background: #f3dada; border-color: #c97474; }
+  .status-select {
+    background: transparent;
+    border: 0;
+    font: inherit;
+    font-size: 12px;
+    text-transform: capitalize;
+    cursor: pointer;
+    outline: none;
+    padding: 4px 22px 4px 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%234a3c30' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    color: #4a3c30;
+  }
+  .status-cell[data-status="pending"]   .status-select { color: #9a651e; }
+  .status-cell[data-status="confirmed"] .status-select { color: #3a4a35; }
+  .status-cell[data-status="completed"] .status-select { color: #ecd1a3;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23ecd1a3' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");
+  }
+  .status-cell[data-status="cancelled"] .status-select { color: #9a3d3d; }
+  .status-select option { background: #fbf6ec; color: #1f1812; }
+  .status-select option[value="pending"]   { background: #f5ecd9; color: #9a651e; }
+  .status-select option[value="confirmed"] { background: #e0eadb; color: #3a4a35; }
+  .status-select option[value="completed"] { background: #2b2620; color: #ecd1a3; }
+  .status-select option[value="cancelled"] { background: #f3dada; color: #9a3d3d; }
+
+  ::selection { background: #b87a26; color: #fbf6ec; }
+
+  /* ─── Mobile menu drawer ─────────────────────────────── */
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 60;
+    background: rgba(251,246,236,0.97);
+    -webkit-backdrop-filter: blur(28px) saturate(118%);
+            backdrop-filter: blur(28px) saturate(118%);
+    display: flex; flex-direction: column;
+    pointer-events: none; opacity: 0;
+    transition: opacity .32s cubic-bezier(.16,1,.3,1);
+    overflow-y: auto;
+  }
+  .mobile-menu.is-open { pointer-events: auto; opacity: 1; }
+  .mobile-menu-close {
+    position: absolute; top: 22px; right: 22px;
+    width: 40px; height: 40px; border-radius: 9999px;
+    display: grid; place-items: center;
+    color: #1f1812; cursor: pointer;
+    transition: background .25s ease;
+  }
+  .mobile-menu-close:hover { background: rgba(31,24,18,0.08); }
+  .mobile-menu-content {
+    flex: 1; padding: 28px 24px 48px;
+    display: flex; flex-direction: column; gap: 26px;
+    max-width: 520px; margin: 0 auto; width: 100%;
+  }
+  .mobile-menu .mm-nav { display: flex; flex-direction: column; }
+  .mobile-menu .mm-nav-link {
+    font-family: 'Fraunces', serif;
+    font-weight: 500; font-size: 30px; letter-spacing: -0.025em; line-height: 1;
+    color: #1f1812;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 4px;
+    border-bottom: 1px solid rgba(31,24,18,0.08);
+    text-decoration: none;
+  }
+  .mobile-menu .mm-nav-link svg { opacity: 0.4; transition: transform .25s ease, opacity .25s ease; }
+  .mobile-menu .mm-nav-link:hover svg, .mobile-menu .mm-nav-link:active svg { opacity: 1; transform: translateX(4px); }
+  .mobile-menu .mm-section-label {
+    font-family: 'JetBrains Mono', ui-monospace;
+    font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #6b6055; margin-bottom: 8px;
+  }
+  .mobile-menu .mm-quick-btn {
+    display: flex; flex-direction: column; align-items: flex-start;
+    padding: 16px 18px; border-radius: 16px;
+    font-size: 13px; line-height: 1.3;
+    transition: transform .2s ease;
+  }
+  .mobile-menu .mm-quick-btn:active { transform: scale(0.97); }
+
+  /* ─── Mobile-only overrides ─────────────────────────── */
+  @media (max-width: 767px) {
+    /* Mobile flex children: allow shrinking (prevents content from forcing min-width) */
+    .hero-stage, .hero-stage > * { min-width: 0; }
+    .hero-stage { width: 100%; }
+
+    /* Hero glass: tighter padding, logo scales down */
+    .hero-glass { padding: 22px 18px; border-radius: 22px; max-width: 100%; min-width: 0; }
+    /* Logo: force block + cap width so it never overflows mobile viewport */
+    .hero-glass .lm-wrap {
+      display: block !important;
+      width: 100%;
+      max-width: 240px;
+      margin: 0 auto;
+    }
+    .hero-glass .lm-wrap img,
+    .hero-glass .lm-wrap svg {
+      display: block !important;
+      width: 100% !important;
+      height: auto !important;
+      max-width: 100% !important;
+    }
+    /* Hero text sizes */
+    .hero-glass .display-italic { font-size: 22px; }
+    /* Hero stat row: tighter gap on small screens */
+    .hero-glass .display { font-size: 20px; }
+
+    /* Catalog grid: 2 columns on mobile, more compact */
+    .catalog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 14px !important; }
+    .catalog-grid .card-name { font-size: 16px !important; line-height: 1.15; }
+    .catalog-grid .ticker { font-size: 9.5px; }
+    .catalog-grid .font-mono { font-size: 12px; }
+    .catalog-grid .card-storage { display: none; }
+    .catalog-grid .card-add { padding: 6px !important; }
+    .catalog-grid .card-add-label { display: none; }
+
+    /* Hero stage: tighter padding, natural height */
+    .hero-stage { padding-top: 64px !important; padding-bottom: 32px !important; min-height: auto !important; }
+    .hero-strip { font-size: 9.5px; gap: 10px; padding: 14px 16px; }
+    .hero-strip .sep { display: none !important; }
+    .hero-scroll-hint { display: none; }
+
+    /* Scroll-tell mobile: longer section so all 240 frames have time to play before unstick */
+    .scroll-tell { height: 320vh !important; }
+    .scroll-text { bottom: 12vh !important; padding: 0 4px; }
+    .scroll-text h2 { font-size: clamp(28px, 8vw, 44px) !important; line-height: 1.04 !important; }
+    .scroll-text p.lead { font-size: 14.5px !important; max-width: 36ch; }
+    .scroll-text .badge { font-size: 10px !important; }
+
+    /* Display/headlines tone down */
+    .display { letter-spacing: -0.02em; }
+
+    /* Modal: full-width on mobile */
+    .modal { max-height: calc(100dvh - 24px); border-radius: 16px; }
+    .modal-head, .modal-body { padding-left: 20px; padding-right: 20px; }
+    .modal-head h3 { font-size: 22px !important; }
+
+    /* Admin tables: ensure scrollable */
+    .admin-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  }
+</style>
+</head>
+
+<body class="font-sans antialiased text-ink-800">
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ───────────── NAV (rendered always) ───────────── -->
+<header id="nav-root" class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-cream-50/80 border-b border-ink-900/5"></header>
+
+<!-- ───────────── APP ROOT ───────────── -->
+<main id="app" class="pt-16 md:pt-24"></main>
+
+<!-- toast container -->
+<div id="toast-root"></div>
+<!-- modal container -->
+<div id="modal-root"></div>
+<!-- mobile menu drawer -->
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true"></div>
+
+<script>
+//─────────────────────────────────────────────────────────────────
+// State (localStorage-backed)
+//─────────────────────────────────────────────────────────────────
+const KEYS = {
+  USERS: 'lumiere.users',
+  SESSION: 'lumiere.session',
+  PRODUCTS: 'lumiere.products',
+  CART: 'lumiere.cart',
+  ORDERS: 'lumiere.orders',
+};
+
+const SEED_PRODUCTS = [
+  { id:'clc-cheese',     category:'Chiffon Lava Cake', name:'Cheese Original',  price:128000, room:'1 Hari', chiller:'3-5 Hari', img:'lumiere-chiffon-cheese-7c9', desc:'Chiffon lembut dengan inti keju lumer di tengah. Teknik double-bake klasik.', active:true, featured:true },
+  { id:'clc-chocheese',  category:'Chiffon Lava Cake', name:'Chocolate Cheese', price:138000, room:'1 Hari', chiller:'3-5 Hari', img:'lumiere-chiffon-chocheese-2bf', desc:'Lapisan cokelat 64% dipadu lava keju asin di tengah.', active:true, featured:true },
+  { id:'clc-doublechoco',category:'Chiffon Lava Cake', name:'Double Choco',     price:142000, room:'5 Jam', chiller:'3-5 Hari', img:'lumiere-chiffon-doublechoco-9ax', desc:'Couverture dark + ganache milk. Untuk yang tidak main-main soal cokelat.', active:true, featured:false },
+  { id:'clc-pandan',     category:'Chiffon Lava Cake', name:'Pandan Layers',    price:132000, room:'5 Jam', chiller:'3-5 Hari', img:'lumiere-chiffon-pandan-x73', desc:'Daun pandan segar diperas pagi-pagi. Lava santan kelapa di dalamnya.', active:true, featured:true },
+
+  { id:'jr-choco',   category:'Japanese Roll', name:'Chocolate Roll', price:92500, room:'5 Jam', chiller:'3-5 Hari', img:'lumiere-jroll-choco-q4z', desc:'Sponge roll super tipis, krim cokelat Belgian, gulungan rapi tujuh putaran.', active:true, featured:true },
+  { id:'jr-milk',    category:'Japanese Roll', name:'Milk Roll',      price:89000,  room:'5 Jam', chiller:'3-5 Hari', img:'lumiere-jroll-milk-w7p', desc:'Susu Hokkaido, vanilla pod Tahiti, tekstur seperti awan.', active:true, featured:false },
+  { id:'jr-biscoff', category:'Japanese Roll', name:'Biscoff Roll',   price:105000, room:'5 Jam', chiller:'3-5 Hari', img:'lumiere-jroll-biscoff-e8r', desc:'Spread Biscoff dilipat tiga kali. Tabur cookie crumble di luar.', active:true, featured:true },
+
+  { id:'ka-meses',  category:'Kue Asix', name:'Meses',         price:78000, room:'1 Hari', chiller:'3-5 Hari', img:'lumiere-asix-meses-r5t', desc:'Resep asli — bolu klasik, mentega Echire, meses ceres impor.', active:true, featured:false },
+  { id:'ka-mocha',  category:'Kue Asix', name:'Mocha Nougat',  price:86000, room:'1 Hari', chiller:'3-5 Hari', img:'lumiere-asix-mocha-y6u', desc:'Mocha Toraja diseduh kuat, nougat almond Italia di atasnya.', active:true, featured:true },
+
+  { id:'rs-cheese', category:'Roti Sobek', name:'Cheese',     price:52000, room:'2-3 Hari', chiller:null, img:'lumiere-sobek-cheese-i9o', desc:'Sembilan sobekan, isi keju mozzarella + cheddar. Hangatkan dua puluh detik.', active:true, featured:false },
+  { id:'rs-choco',  category:'Roti Sobek', name:'Chocolate',  price:48000, room:'2-3 Hari', chiller:null, img:'lumiere-sobek-choco-p0a', desc:'Cokelat compound 47%, taburan almond. Untuk teman kopi sore.', active:true, featured:false },
+  { id:'rs-spicy',  category:'Roti Sobek', name:'Spicy Floss',price:56000, room:'2-3 Hari', chiller:null, img:'lumiere-sobek-spicy-s1d', desc:'Abon ayam pedas, mayo wijen. Manis-gurih yang adiktif.', active:true, featured:true },
+];
+
+const CATEGORIES = ['Chiffon Lava Cake', 'Japanese Roll', 'Kue Asix', 'Roti Sobek'];
+
+const Store = {
+  read(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } },
+  write(key, value) { localStorage.setItem(key, JSON.stringify(value)); },
+
+  get session() { return this.read(KEYS.SESSION, null); },
+  set session(v) { v ? this.write(KEYS.SESSION, v) : localStorage.removeItem(KEYS.SESSION); },
+
+  get users() { return this.read(KEYS.USERS, []); },
+  set users(v) { this.write(KEYS.USERS, v); },
+
+  get products() { return this.read(KEYS.PRODUCTS, []); },
+  set products(v) { this.write(KEYS.PRODUCTS, v); },
+
+  get cart() { return this.read(KEYS.CART, []); },
+  set cart(v) { this.write(KEYS.CART, v); },
+
+  get orders() { return this.read(KEYS.ORDERS, []); },
+  set orders(v) { this.write(KEYS.ORDERS, v); },
+};
+
+function seed() {
+  if (Store.products.length === 0) Store.products = SEED_PRODUCTS;
+  const users = Store.users;
+  let changed = false;
+  if (!users.find(u => u.email === 'admin@lumiere.id')) {
+    users.push({ id:'admin-001', name:'Solène Vergne', email:'admin@lumiere.id', password:'admin123', role:'admin', createdAt: Date.now() });
+    changed = true;
+  }
+  if (!users.find(u => u.email === 'user@lumiere.id')) {
+    users.push({ id:'user-001', name:'Cécile Marot', email:'user@lumiere.id', password:'user123', role:'customer', createdAt: Date.now() });
+    changed = true;
+  }
+  if (changed) Store.users = users;
+}
+seed();
+
+function quickLogin(role) {
+  const email = role === 'admin' ? 'admin@lumiere.id' : 'user@lumiere.id';
+  const u = Store.users.find(x => x.email === email);
+  if (!u) { toast('Akun demo belum ada'); return; }
+  Store.session = { id: u.id, name: u.name, email: u.email, role: u.role };
+  renderNav();
+  toast(`Halo, ${u.name.split(' ')[0]}`);
+  go(role === 'admin' ? '/admin' : '/catalog');
+}
+
+//─────────────────────────────────────────────────────────────────
+// Helpers
+//─────────────────────────────────────────────────────────────────
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+const fmtIDR = (n) => 'Rp ' + n.toLocaleString('id-ID');
+
+// Food image helpers — loremflickr returns real food photos by tag,
+// `lock` makes the choice deterministic per seed string.
+const CATEGORY_IMG_TAGS = {
+  'Chiffon Lava Cake': 'cake,chocolate,dessert,frosting',
+  'Japanese Roll':     'swissroll,cake,cream,roll',
+  'Kue Asix':          'cake,birthday,sponge,bakery',
+  'Roti Sobek':        'bread,bun,brioche,bakery',
+};
+function hashSeed(s) {
+  s = String(s || 'lumiere');
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+function productImg(p, w, h) {
+  const tags = (p && p.imgTags) || CATEGORY_IMG_TAGS[p?.category] || 'cake,dessert,bakery';
+  return `https://loremflickr.com/${w}/${h}/${encodeURIComponent(tags)}?lock=${hashSeed(p?.img)}`;
+}
+function tagImg(seed, tags, w, h) {
+  return `https://loremflickr.com/${w}/${h}/${encodeURIComponent(tags)}?lock=${hashSeed(seed)}`;
+}
+
+// ─── Lu'miere logo ─────────────────────────────
+// Tries to load ./assets/lumiere-logo.png first. Falls back to an
+// inline SVG (heavy slab serif Alfa Slab One + cake-bite mark) if
+// the file isn't there yet — so the page always renders something.
+let __lmLogoCounter = 0;
+const LOGO_PATH = './assets/lumiere-logo.png';
+
+function logoSvg(opts = {}) {
+  const variant = opts.variant || 'stacked';
+  const height = opts.height || (variant === 'mark' ? 36 : variant === 'horizontal' ? 52 : 180);
+  const wrapId = 'lmw-' + (++__lmLogoCounter);
+  const svgFallback = renderLumiereSvg({ ...opts, height });
+  return `
+    <span class="lm-wrap" id="${wrapId}" style="display:inline-block;line-height:0;vertical-align:middle">
+      <img src="${LOGO_PATH}" alt="Lu'miere — It's a cake o'clock"
+           style="height:${height}px;width:auto;display:block;user-select:none" draggable="false"
+           onerror="var w=document.getElementById('${wrapId}');this.remove();w.querySelector('.lm-fallback').style.display='inline-block';"/>
+      <span class="lm-fallback" style="display:none">${svgFallback}</span>
+    </span>`;
+}
+
+function renderLumiereSvg(opts = {}) {
+  const variant = opts.variant || 'stacked';
+  const height = opts.height || (variant === 'mark' ? 36 : variant === 'horizontal' ? 52 : 180);
+  const onDark = !!opts.onDark;
+  const id = 'lm-svg-' + (++__lmLogoCounter);
+
+  // Cake glyph: circle (r=46, center 50,50) with wedge bite from 12 to ~3:30 o'clock.
+  // Endpoints: (50, 4) at 12, (94.43, 61.91) at 105° from 12.
+  const markPath = 'M 50 50 L 50 4 A 46 46 0 1 0 94.43 61.91 Z';
+
+  const defs = `
+    <defs>
+      <radialGradient id="${id}-mark" cx="0.34" cy="0.30" r="0.85" fx="0.30" fy="0.24">
+        <stop offset="0%"   stop-color="#fbe7b5"/>
+        <stop offset="22%"  stop-color="#f0c178"/>
+        <stop offset="55%"  stop-color="#b87a26"/>
+        <stop offset="85%"  stop-color="#7a4d12"/>
+        <stop offset="100%" stop-color="#5a3a10"/>
+      </radialGradient>
+      <linearGradient id="${id}-word" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#f9dfa3"/>
+        <stop offset="20%"  stop-color="#dba24e"/>
+        <stop offset="46%"  stop-color="#7e4f15"/>
+        <stop offset="56%"  stop-color="#693e0e"/>
+        <stop offset="78%"  stop-color="#c89542"/>
+        <stop offset="100%" stop-color="#dca053"/>
+      </linearGradient>
+      <linearGradient id="${id}-bite" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#7a4d12"/>
+        <stop offset="100%" stop-color="#c88130"/>
+      </linearGradient>
+      <radialGradient id="${id}-shine" cx="0.5" cy="0.5" r="0.6">
+        <stop offset="0%" stop-color="rgba(255,243,205,0.85)"/>
+        <stop offset="100%" stop-color="rgba(255,243,205,0)"/>
+      </radialGradient>
+      ${variant === 'stacked' ? `<path id="${id}-curve" d="M 60 460 Q 300 415 540 460" fill="none"/>` : ''}
+    </defs>`;
+
+  const strokeDark = '#4a2f0c';
+  const taglineFill = onDark ? '#e9c89a' : '#a06820';
+
+  // Cake mark with metallic dome look + interior bite shading
+  const markGroup = (tx, ty, scale) => `
+    <g transform="translate(${tx} ${ty}) scale(${scale})">
+      <path d="${markPath}" fill="rgba(60,35,8,0.30)" transform="translate(2.2 4.5)"/>
+      <path d="${markPath}" fill="url(#${id}-mark)"
+            stroke="${strokeDark}" stroke-width="2.6"
+            stroke-linejoin="round" stroke-linecap="round"
+            vector-effect="non-scaling-stroke"/>
+      <path d="M 50 50 L 50 4 L 53 9 L 53 47 Z" fill="url(#${id}-bite)" opacity="0.55"/>
+      <path d="M 50 50 L 94.43 61.91 L 90 65 L 53 53 Z" fill="url(#${id}-bite)" opacity="0.55"/>
+      <ellipse cx="35" cy="20" rx="18" ry="6" fill="url(#${id}-shine)" transform="rotate(-22 35 20)" pointer-events="none"/>
+    </g>`;
+
+  // Wordmark "Lu'miere" — small "o" replaces the apostrophe (matches original)
+  // Three text segments: "Lu" + raised small "o" + "miere"
+  const wordmark = (cx, y, size, anchor) => {
+    const sm = size * 0.45;
+    const lift = size * 0.30;
+    const stroke = Math.max(1.6, size / 55);
+    const inner = `Lu<tspan font-size="${sm}" dy="-${lift}">o</tspan><tspan dy="${lift}">miere</tspan>`;
+    return `
+      <text x="${cx + size*0.025}" y="${y + size*0.04}"
+            font-family="'Alfa Slab One', serif"
+            font-size="${size}" text-anchor="${anchor}"
+            fill="rgba(60,35,8,0.32)">${inner}</text>
+      <text x="${cx}" y="${y}"
+            font-family="'Alfa Slab One', serif"
+            font-size="${size}" text-anchor="${anchor}"
+            fill="url(#${id}-word)"
+            stroke="${strokeDark}" stroke-width="${stroke}"
+            stroke-linejoin="round"
+            paint-order="stroke fill">${inner}</text>`;
+  };
+
+  if (variant === 'mark') {
+    return `<svg viewBox="0 0 100 100" style="height:${height}px;width:auto;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lu'miere">${defs}${markGroup(0, 0, 1)}</svg>`;
+  }
+
+  if (variant === 'horizontal') {
+    return `
+      <svg viewBox="0 0 480 120" style="height:${height}px;width:auto;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lu'miere — It's a cake o'clock">
+        ${defs}
+        ${markGroup(2, 8, 0.95)}
+        ${wordmark(295, 76, 56, 'middle')}
+        <text x="295" y="106"
+              font-family="Outfit, system-ui, sans-serif"
+              font-weight="700" font-size="11.5"
+              letter-spacing="3.6"
+              text-anchor="middle"
+              fill="${taglineFill}">IT&#39;S A CAKE O&#39;CLOCK</text>
+      </svg>`;
+  }
+
+  // STACKED — full vertical lockup
+  return `
+    <svg viewBox="0 0 600 500" style="height:${height}px;width:auto;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lu'miere — It's a cake o'clock">
+      ${defs}
+      ${markGroup(220, 12, 1.65)}
+      ${wordmark(300, 340, 118, 'middle')}
+      <text font-family="Outfit, system-ui, sans-serif"
+            font-weight="700" font-size="32"
+            letter-spacing="6.5"
+            fill="${taglineFill}">
+        <textPath href="#${id}-curve" startOffset="50%" text-anchor="middle">IT&#39;S A CAKE O&#39;CLOCK</textPath>
+      </text>
+    </svg>`;
+}
+
+function go(path) { location.hash = '#' + path; }
+function currentPath() { return (location.hash || '#/').slice(1); }
+
+function toast(msg) {
+  const root = $('#toast-root');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `<span class="dot"></span><span>${msg}</span>`;
+  root.appendChild(t);
+  requestAnimationFrame(() => t.classList.add('in'));
+  setTimeout(() => { t.classList.remove('in'); setTimeout(() => t.remove(), 400); }, 2400);
+}
+
+function modal(html, onMount) {
+  const root = $('#modal-root');
+  root.innerHTML = `<div class="modal-back"><div class="modal" role="dialog" aria-modal="true">${html}</div></div>`;
+  const back = $('.modal-back', root);
+  requestAnimationFrame(() => back.classList.add('in'));
+  back.addEventListener('click', (e) => { if (e.target === back) closeModal(); });
+  document.addEventListener('keydown', escClose);
+  document.body.style.overflow = 'hidden';
+  if (onMount) onMount(root);
+}
+function escClose(e) { if (e.key === 'Escape') closeModal(); }
+function closeModal() {
+  const back = $('.modal-back');
+  if (!back) return;
+  back.classList.remove('in');
+  document.removeEventListener('keydown', escClose);
+  document.body.style.overflow = '';
+  setTimeout(() => $('#modal-root').innerHTML = '', 250);
+}
+
+function uid() { return Math.random().toString(36).slice(2, 9); }
+
+function cartCount() { return Store.cart.reduce((s, i) => s + i.qty, 0); }
+function cartTotal() {
+  const products = Store.products;
+  return Store.cart.reduce((s, i) => {
+    const p = products.find(x => x.id === i.productId);
+    return s + (p ? p.price * i.qty : 0);
+  }, 0);
+}
+
+function addToCart(productId, qty=1) {
+  const cart = Store.cart;
+  const existing = cart.find(i => i.productId === productId);
+  if (existing) existing.qty += qty;
+  else cart.push({ productId, qty });
+  Store.cart = cart;
+  renderNav();
+  const p = Store.products.find(x => x.id === productId);
+  toast(`${p?.name ?? 'Item'} masuk keranjang`);
+}
+
+function setQty(productId, qty) {
+  let cart = Store.cart;
+  if (qty <= 0) cart = cart.filter(i => i.productId !== productId);
+  else cart = cart.map(i => i.productId === productId ? { ...i, qty } : i);
+  Store.cart = cart;
+}
+
+function logout() {
+  Store.session = null;
+  Store.cart = [];
+  go('/');
+  toast('Sampai jumpa lagi');
+}
+
+function requireAuth() {
+  if (!Store.session) { go('/login'); return false; }
+  return true;
+}
+function requireAdmin() {
+  const s = Store.session;
+  if (!s || s.role !== 'admin') { go('/login'); toast('Akses admin diperlukan'); return false; }
+  return true;
+}
+
+//─────────────────────────────────────────────────────────────────
+// Animation helpers
+//─────────────────────────────────────────────────────────────────
+function bindReveals(root=document) {
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }
+  }, { threshold: 0.12 });
+  $$('.reveal, .reveal-stagger', root).forEach(el => io.observe(el));
+}
+function bindScrollTell() {
+  const sec = document.querySelector('.scroll-tell');
+  if (!sec) return;
+  const canvas = sec.querySelector('#scroll-canvas');
+  const texts = Array.from(sec.querySelectorAll('.scroll-text'));
+  const dots  = Array.from(sec.querySelectorAll('.scroll-tell-progress .pdot'));
+  if (!canvas || texts.length === 0) return;
+
+  const FRAME_COUNT = parseInt(sec.dataset.frameCount || '240', 10);
+  const STAGE_COUNT = texts.length;
+  const framePath = (i) => `./assets/scroll-frames/f_${String(i).padStart(3, '0')}.jpg`;
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const cw = canvas.width, ch = canvas.height;
+
+  // Preload + decode every frame. decode() forces the browser to do the JPEG
+  // decode work upfront so drawImage is GPU-fast, no main-thread hitch on swap.
+  const frames = new Array(FRAME_COUNT);
+  let firstReady = null;
+
+  function preload(i) {
+    const im = new Image();
+    im.decoding = 'async';
+    im.src = framePath(i);
+    frames[i] = im;
+    // Decode in background so drawImage is instant later
+    if (im.decode) {
+      im.decode().then(() => {
+        if (firstReady === null) { firstReady = i; render(0); }
+      }).catch(() => {});
+    } else {
+      im.addEventListener('load', () => {
+        if (firstReady === null) { firstReady = i; render(0); }
+      }, { once: true });
+    }
+  }
+  for (let i = 0; i < FRAME_COUNT; i++) preload(i);
+
+  let raf = 0;
+  let lastIdx = -1;
+
+  function applyStage(progress) {
+    const stage = Math.min(STAGE_COUNT - 1, Math.floor(progress * STAGE_COUNT));
+    texts.forEach((el, i) => {
+      el.classList.remove('is-active', 'is-prev', 'is-next');
+      if (i === stage) el.classList.add('is-active');
+      else if (i < stage) el.classList.add('is-prev');
+      else el.classList.add('is-next');
+    });
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === stage));
+  }
+
+  function render(idx) {
+    // Walk back from idx to find the nearest decoded frame, so we never show black
+    let im = frames[idx];
+    let walk = idx;
+    while ((!im || !im.complete || im.naturalWidth === 0) && walk > 0) {
+      walk--;
+      im = frames[walk];
+    }
+    if (!im || !im.complete || im.naturalWidth === 0) {
+      // walk forward as fallback
+      walk = idx;
+      while ((!im || !im.complete || im.naturalWidth === 0) && walk < FRAME_COUNT - 1) {
+        walk++;
+        im = frames[walk];
+      }
+    }
+    if (im && im.complete && im.naturalWidth > 0) {
+      ctx.drawImage(im, 0, 0, cw, ch);
+    }
+  }
+
+  function update() {
+    const rect = sec.getBoundingClientRect();
+    const total = sec.offsetHeight - window.innerHeight;
+    if (total <= 0) return;
+    const progress = Math.max(0, Math.min(1, -rect.top / total));
+
+    const idx = Math.min(FRAME_COUNT - 1, Math.max(0, Math.round(progress * (FRAME_COUNT - 1))));
+    if (idx !== lastIdx) {
+      render(idx);
+      lastIdx = idx;
+    }
+    applyStage(progress);
+  }
+
+  function onScroll() {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(update);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+}
+
+function bindHeroDeck() {
+  const deck = document.querySelector('.hero-deck');
+  if (!deck) return;
+  const cards = Array.from(deck.querySelectorAll('.hero-deck-card'));
+  const dots = Array.from(document.querySelectorAll('.hero-deck-dot'));
+  if (cards.length < 2) return;
+
+  // order[0] = front index, order[1] = mid, order[2] = back, [3+] hidden behind
+  let order = cards.map((_, i) => i);
+  let timer = null;
+  const INTERVAL = 4500;
+  const EXIT_MS = 850;
+
+  function apply() {
+    cards.forEach((card, idx) => {
+      const pos = order.indexOf(idx);
+      if (pos === 0) card.dataset.pos = '0';
+      else if (pos === 1) card.dataset.pos = '1';
+      else if (pos === 2) card.dataset.pos = '2';
+      else card.dataset.pos = '2'; // anything beyond mid stays at back
+    });
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === order[0]));
+  }
+
+  function shuffle() {
+    if (cards.length < 2) return;
+    const front = cards[order[0]];
+    front.dataset.pos = '-1';
+    setTimeout(() => {
+      order = [...order.slice(1), order[0]];
+      apply();
+    }, EXIT_MS);
+  }
+
+  function start() { if (!timer) timer = setInterval(shuffle, INTERVAL); }
+  function stop()  { if (timer) { clearInterval(timer); timer = null; } }
+
+  apply();
+  start();
+
+  // Pause auto-shuffle when hovering, resume on leave
+  deck.addEventListener('mouseenter', stop);
+  deck.addEventListener('mouseleave', start);
+  // Pause when tab is hidden (saves CPU)
+  document.addEventListener('visibilitychange', () => document.hidden ? stop() : start(), { once: false });
+}
+
+function bindMagnets(root=document) {
+  $$('[data-magnet]', root).forEach(el => {
+    let raf = 0;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width/2)) * 0.18;
+      const dy = (e.clientY - (r.top + r.height/2)) * 0.22;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.setProperty('--mx', dx.toFixed(2)+'px');
+        el.style.setProperty('--my', dy.toFixed(2)+'px');
+        el.setAttribute('data-x','');
+      });
+    };
+    const reset = () => {
+      cancelAnimationFrame(raf);
+      el.style.setProperty('--mx','0px');
+      el.style.setProperty('--my','0px');
+    };
+    el.addEventListener('pointermove', onMove);
+    el.addEventListener('pointerleave', reset);
+  });
+}
+
+//─────────────────────────────────────────────────────────────────
+// NAV
+//─────────────────────────────────────────────────────────────────
+function renderNav() {
+  const s = Store.session;
+  const count = cartCount();
+  const adminLinks = s?.role === 'admin'
+    ? `<a href="#/admin" class="underline-honey">Admin</a>`
+    : '';
+  const accountBlock = s
+    ? `
+      <div class="hidden md:flex items-center gap-5 text-[13px]">
+        ${adminLinks}
+        <a href="#/orders" class="underline-honey">Pesanan saya</a>
+        <span class="text-ink-700/70">${s.name.split(' ')[0]}</span>
+        <button onclick="logout()" class="underline-honey">Keluar</button>
+      </div>`
+    : `
+      <div class="hidden md:flex items-center gap-2 text-[12px]">
+        <button onclick="quickLogin('admin')" class="press rounded-full border border-ink-900/15 px-3 py-1.5 hover:bg-ink-900 hover:text-cream-50 transition-colors">Admin</button>
+        <button onclick="quickLogin('customer')" class="press rounded-full border border-ink-900/15 px-3 py-1.5 hover:bg-honey-600 hover:text-cream-50 hover:border-honey-600 transition-colors">User</button>
+        <a href="#/login" class="underline-honey ml-2 text-[13px]">Masuk</a>
+      </div>`;
+
+  $('#nav-root').innerHTML = `
+    <nav class="max-w-[1400px] mx-auto px-5 md:px-10 h-16 md:h-24 flex items-center justify-between gap-4">
+      <a href="#/" class="flex items-center shrink-0" aria-label="Lu'miere — beranda">
+        ${logoSvg({ variant: 'horizontal', height: 38 })}
+      </a>
+      <ul class="hidden md:flex items-center gap-7 text-[13.5px] text-ink-800">
+        <li><a href="#/" class="underline-honey">Beranda</a></li>
+        <li><a href="#/catalog" class="underline-honey">Katalog</a></li>
+        <li><a href="#/locations" class="underline-honey">Lokasi</a></li>
+        <li><a href="#/about" class="underline-honey">Tentang</a></li>
+      </ul>
+      <div class="flex items-center gap-2 md:gap-4">
+        ${accountBlock}
+        <a href="#/cart" class="press magnet inline-flex items-center gap-1.5 md:gap-2 rounded-full bg-ink-900 text-cream-50 pl-3 md:pl-4 pr-2.5 md:pr-3 py-2 text-[12.5px] md:text-[13px]" data-magnet>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4h2l2.5 12h11l2-9H6"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+          <span class="hidden sm:inline">Keranjang</span>${count > 0 ? `<span class="badge">${count}</span>` : ''}
+        </a>
+        <button onclick="openMobileMenu()" class="md:hidden press w-10 h-10 grid place-items-center rounded-full border border-ink-900/15 text-ink-900 hover:bg-ink-900 hover:text-cream-50 transition-colors" aria-label="Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  `;
+  bindMagnets($('#nav-root'));
+  renderMobileMenu();
+}
+
+function renderMobileMenu() {
+  const s = Store.session;
+  const count = cartCount();
+  const navItems = [
+    ['/', 'Beranda'],
+    ['/catalog', 'Katalog'],
+    ['/locations', 'Lokasi'],
+    ['/about', 'Tentang'],
+  ];
+  const accountSection = s ? `
+    <div>
+      <div class="mm-section-label">Akun</div>
+      <div class="bg-cream-100/80 rounded-2xl p-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-honey-200 grid place-items-center display text-honey-700">${s.name.charAt(0)}</div>
+          <div>
+            <div class="text-[14px] text-ink-900">${s.name}</div>
+            <div class="text-[11px] text-ink-700">${s.email}</div>
+          </div>
+        </div>
+        <div class="mt-3 grid grid-cols-2 gap-2 text-[12.5px]">
+          <a href="#/orders" onclick="closeMobileMenu()" class="press text-center py-2.5 rounded-xl border border-ink-900/10 bg-cream-50">Pesanan saya</a>
+          ${s.role === 'admin'
+            ? `<a href="#/admin" onclick="closeMobileMenu()" class="press text-center py-2.5 rounded-xl bg-ink-900 text-cream-50">Admin panel</a>`
+            : `<a href="#/cart" onclick="closeMobileMenu()" class="press text-center py-2.5 rounded-xl bg-honey-600 text-cream-50">Keranjang${count?` · ${count}`:''}</a>`}
+        </div>
+        <button onclick="logout(); closeMobileMenu()" class="mt-3 w-full py-2.5 text-[12.5px] text-rose-700 border-t border-ink-900/10">Keluar</button>
+      </div>
+    </div>` : `
+    <div>
+      <div class="mm-section-label">Preview cepat</div>
+      <div class="grid grid-cols-2 gap-3">
+        <button onclick="quickLogin('admin'); closeMobileMenu()" class="mm-quick-btn press bg-ink-900 text-cream-50">
+          <span class="text-[10px] uppercase tracking-[0.18em] opacity-70">Owner / Staff</span>
+          <span class="display text-[18px] mt-0.5">Login Admin</span>
+        </button>
+        <button onclick="quickLogin('customer'); closeMobileMenu()" class="mm-quick-btn press bg-honey-600 text-cream-50">
+          <span class="text-[10px] uppercase tracking-[0.18em] opacity-80">Pelanggan</span>
+          <span class="display text-[18px] mt-0.5">Login User</span>
+        </button>
+      </div>
+      <div class="mt-3 grid grid-cols-2 gap-2 text-[12.5px]">
+        <a href="#/login" onclick="closeMobileMenu()" class="press text-center py-2.5 rounded-xl border border-ink-900/10">Masuk</a>
+        <a href="#/register" onclick="closeMobileMenu()" class="press text-center py-2.5 rounded-xl border border-ink-900/10">Daftar</a>
+      </div>
+    </div>`;
+
+  $('#mobile-menu').innerHTML = `
+    <button class="mobile-menu-close" onclick="closeMobileMenu()" aria-label="Tutup menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="mobile-menu-content">
+      <div class="flex justify-center pt-4">${logoSvg({ variant: 'stacked', height: 130 })}</div>
+      <nav class="mm-nav">
+        ${navItems.map(([href, label]) => `
+          <a href="#${href}" onclick="closeMobileMenu()" class="mm-nav-link press">
+            <span>${label}</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        `).join('')}
+      </nav>
+      ${accountSection}
+      <div class="text-center text-[10.5px] uppercase tracking-[0.18em] text-ink-700/70 mt-4">
+        <div>#SpesialSetiapSaat</div>
+        <div class="mt-1.5 opacity-70">+62 812 8473 1928 · halo@lumiere.id</div>
+      </div>
+    </div>
+  `;
+}
+
+function openMobileMenu() {
+  const m = $('#mobile-menu');
+  if (!m) return;
+  m.classList.add('is-open');
+  m.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  const m = $('#mobile-menu');
+  if (!m) return;
+  m.classList.remove('is-open');
+  m.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+//─────────────────────────────────────────────────────────────────
+// VIEW: HOME
+//─────────────────────────────────────────────────────────────────
+function viewHome() {
+  const products = Store.products.filter(p => p.active);
+  const featured = products.filter(p => p.featured).slice(0, 5);
+  const photo = (p, cls='aspect-[4/5]') => `
+    <a href="#/product/${p.id}" class="block group">
+      <div class="photo edge ${cls}">
+        <img src="${productImg(p, 900, 1125)}" alt="${p.name}" loading="lazy"/>
+      </div>
+      <div class="mt-4 flex items-baseline justify-between gap-4">
+        <div>
+          <div class="ticker">${p.category}</div>
+          <div class="display-italic text-[20px] text-ink-900 mt-0.5">${p.name}</div>
+        </div>
+        <div class="font-mono text-[13px] text-ink-900 shrink-0">${fmtIDR(p.price)}</div>
+      </div>
+    </a>`;
+
+  $('#app').innerHTML = `
+    <!-- HERO -->
+    <section class="relative">
+      <div class="relative overflow-hidden">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+          <source src="./assets/L_rotate.mp4" type="video/mp4"/>
+        </video>
+        <div class="hero-video-wash" aria-hidden="true"></div>
+        <div class="orb" style="top:-220px; left:-180px;"></div>
+        <div class="orb" style="bottom:-220px; right:-180px; opacity:.55;"></div>
+
+        <!-- Top status strip — centered -->
+        <div class="hero-strip" style="top:0;">
+          <div class="flex items-center gap-3"><span class="dot"></span><span>Open · 09:13 → 21:00</span></div>
+          <span class="sep hidden md:inline">/</span>
+          <span class="hidden md:inline">Nº 047 · Hari ini</span>
+          <span class="sep hidden md:inline">/</span>
+          <span class="hidden md:inline">2 outlet · Jakarta</span>
+        </div>
+
+        <!-- Main row — flex justify-center, glass + deck form a centered unit -->
+        <div class="hero-stage max-w-[1280px] mx-auto px-6 md:px-10 min-h-[88vh] flex flex-col md:flex-row md:items-stretch md:justify-center gap-8 md:gap-12 lg:gap-16 pt-24 pb-20">
+
+          <!-- LEFT — logo glass island -->
+          <div class="reveal flex items-center md:max-w-[600px] md:flex-shrink-0">
+            <div class="hero-glass w-full">
+              <div class="flex justify-center">
+                ${logoSvg({ variant: 'stacked', height: 220 })}
+              </div>
+
+              <div class="mt-6 h-px bg-ink-900/10"></div>
+
+              <p class="mt-5 display-italic text-[24px] md:text-[30px] text-ink-900 leading-[1.1] max-w-[22ch]">
+                Pukul empat sore, dapur menyala lagi.
+              </p>
+
+              <p class="mt-4 max-w-[48ch] text-[15px] leading-[1.6] text-ink-700">
+                Signature cake studio dari Jakarta. Empat kategori, dua belas varian,
+                dipanggang harian di Radio Dalam dan Pondok Indah Mall 3.
+              </p>
+
+              <div class="mt-6 flex flex-wrap items-center gap-5">
+                <a href="#/catalog" data-magnet class="magnet press inline-flex items-center gap-3 rounded-full bg-honey-600 text-cream-50 pl-6 pr-5 py-3 text-[14px] edge">
+                  Lihat katalog
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+                <a href="#/locations" class="text-[14px] text-ink-800 underline-honey">Cari outlet terdekat</a>
+              </div>
+
+              <div class="mt-6 pt-5 border-t border-ink-900/10 grid grid-cols-3 gap-3 text-center">
+                <div>
+                  <div class="display text-[24px] text-ink-900 leading-none">12</div>
+                  <div class="text-[10px] uppercase tracking-[0.16em] text-ink-700/80 mt-1.5">Varian harian</div>
+                </div>
+                <div>
+                  <div class="display text-[24px] text-ink-900 leading-none">47</div>
+                  <div class="text-[10px] uppercase tracking-[0.16em] text-ink-700/80 mt-1.5">Loyang/hari</div>
+                </div>
+                <div>
+                  <div class="display text-[24px] text-ink-900 leading-none">2014</div>
+                  <div class="text-[10px] uppercase tracking-[0.16em] text-ink-700/80 mt-1.5">Sejak</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT — deck + meta widget below -->
+          <div class="hidden md:flex flex-col items-end justify-center gap-4 reveal md:flex-shrink-0" style="width: 340px">
+            ${(() => {
+              const pick = (id) => Store.products.find(p => p.id === id);
+              const deck = [
+                { p: pick('clc-pandan'),    tag:'Best seller' },
+                { p: pick('jr-biscoff'),    tag:'Crowd favourite' },
+                { p: pick('ka-mocha'),      tag:'Baru pekan ini' },
+                { p: pick('clc-chocheese'), tag:null },
+              ].filter(c => c.p);
+              const cardsHtml = deck.map((c, i) => `
+                <a href="#/product/${c.p.id}" class="hero-deck-card" data-pos="${i < 3 ? i : 2}">
+                  <div class="photo">
+                    <img src="${productImg(c.p, 700, 875)}" alt="${c.p.name}" loading="lazy"/>
+                  </div>
+                  <div class="deck-meta">
+                    <div class="flex items-center gap-2 ticker mb-1.5">
+                      ${c.tag ? `<span class="dot" style="background:#b87a26;width:5px;height:5px"></span><span class="text-honey-700">${c.tag}</span><span class="opacity-30">·</span>` : ''}
+                      <span>${c.p.category}</span>
+                    </div>
+                    <div class="display-italic text-[19px] text-ink-900 leading-tight">${c.p.name}</div>
+                    <div class="font-mono text-[12.5px] text-ink-900 mt-2">${fmtIDR(c.p.price)}</div>
+                  </div>
+                </a>
+              `).join('');
+              const dots = deck.map((_, i) => `<span class="hero-deck-dot${i===0?' is-active':''}"></span>`).join('');
+              return `
+                <div class="text-[10px] uppercase tracking-[0.18em] text-ink-700/80 self-end inline-flex items-center gap-2" style="font-family:'JetBrains Mono',ui-monospace">
+                  <span style="background:#b87a26;width:5px;height:5px;border-radius:9999px;display:inline-block"></span>
+                  <span>Pilihan minggu ini</span>
+                </div>
+                <div class="hero-deck">${cardsHtml}</div>
+                <div class="hero-deck-dots">${dots}</div>
+                <a href="#/catalog" class="hero-deck-cta inline-flex items-center justify-between w-full mt-2 px-4 py-3 rounded-full bg-cream-50/85 backdrop-blur-md border border-white/60 text-[12.5px] text-ink-900 hover:bg-cream-50 transition-colors">
+                  <span>Lihat semua 12 varian</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+              `;
+            })()}
+          </div>
+        </div>
+
+        <!-- Bottom-left scroll hint -->
+        <div class="hero-scroll-hint">
+          <span>Scroll · Lihat semua varian</span>
+          <span class="arrow"></span>
+        </div>
+      </div>
+
+      <div class="relative z-10 overflow-hidden border-y border-ink-900/10 bg-cream-100 marquee-pause">
+        <div class="marquee-track py-5 text-ink-800">
+          <span class="display text-[42px] leading-none flex items-center gap-20">
+            <span>Chiffon Lava Cake</span><span class="text-honey-600">·</span>
+            <span class="display-italic">Japanese Roll</span><span class="text-honey-600">·</span>
+            <span>Kue Asix</span><span class="text-honey-600">·</span>
+            <span class="display-italic">Roti Sobek</span><span class="text-honey-600">·</span>
+            <span>#SpesialSetiapSaat</span><span class="text-honey-600">·</span>
+          </span>
+          <span class="display text-[42px] leading-none flex items-center gap-20" aria-hidden="true">
+            <span>Chiffon Lava Cake</span><span class="text-honey-600">·</span>
+            <span class="display-italic">Japanese Roll</span><span class="text-honey-600">·</span>
+            <span>Kue Asix</span><span class="text-honey-600">·</span>
+            <span class="display-italic">Roti Sobek</span><span class="text-honey-600">·</span>
+            <span>#SpesialSetiapSaat</span><span class="text-honey-600">·</span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCROLL-TELL — 240-frame canvas sequence, drawImage on scroll, full-bleed bg -->
+    <section class="scroll-tell" style="height: 360vh" data-frame-count="240">
+      <div class="scroll-tell-sticky">
+        <canvas class="scroll-video" id="scroll-canvas" width="1920" height="1080" aria-hidden="true"></canvas>
+        <div class="scroll-tell-vignette" aria-hidden="true"></div>
+
+        <div class="scroll-text-stack">
+          <div class="scroll-text" data-stage="0">
+            <span class="badge">§ 01 · Mulai dari satu lapis</span>
+            <h2 class="mt-5">Setiap kue dimulai<br/>sebelum matahari naik.</h2>
+            <p class="lead">
+              Pukul empat sore kemarin, levain disisakan setengah. Pukul empat pagi
+              hari ini, dia diberi makan ulang dan istirahat tujuh jam — sampai
+              siap untuk pertama kali dilipat.
+            </p>
+          </div>
+
+          <div class="scroll-text" data-stage="1">
+            <span class="badge">§ 02 · Lapisan demi lapisan</span>
+            <h2 class="mt-5">Empat <em class="display-italic" style="color:#f0c178">tour</em>,<br/>satu standar tunggal.</h2>
+            <p class="lead">
+              Mentega dingin di empat belas derajat. Adonan dilipat empat kali,
+              istirahat dua puluh menit di antara setiap lipatan. Pas dipotong,
+              ratusan lapis tipis — itulah yang membuat satu gigit terasa lain.
+            </p>
+          </div>
+
+          <div class="scroll-text" data-stage="2">
+            <span class="badge">§ 03 · Sampai ke meja kamu</span>
+            <h2 class="mt-5">Hangat dari oven,<br/>langsung dipotong.</h2>
+            <p class="lead">
+              Tidak ada kue Lu'miere yang menginap lebih dari yang seharusnya.
+              Dipanggang pagi, dibungkus siang, dimakan sebelum matahari terbenam
+              dua kali — untuk dirayakan, untuk dibagi.
+            </p>
+          </div>
+        </div>
+
+        <div class="scroll-tell-progress" aria-hidden="true">
+          <span class="pdot" data-stage="0"></span>
+          <span class="pdot" data-stage="1"></span>
+          <span class="pdot" data-stage="2"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 py-32 md:py-40 grid grid-cols-12 gap-8">
+      <div class="col-span-12 md:col-span-3"><div class="ticker">§ 01 · Cerita kami</div></div>
+      <div class="col-span-12 md:col-span-7 md:col-start-5 reveal">
+        <p class="display text-[34px] md:text-[44px] leading-[1.08] text-ink-900">
+          Kami percaya kue terbaik adalah kue yang dibuat <span class="display-italic text-honey-700">tepat waktu</span>—
+          dipanggang pagi, dibungkus siang, dimakan sebelum matahari terbenam dua kali.
+        </p>
+        <p class="mt-8 text-[16px] leading-[1.7] text-ink-700 max-w-[58ch]">
+          Lu'miere dibuka pertama kali di Radio Dalam, lalu Pondok Indah Mall 3.
+          Empat kategori, dua belas varian, satu standar tunggal: bahan terbaik,
+          tangan yang sama setiap hari, dan tidak ada kue yang menginap lebih dari yang seharusnya.
+        </p>
+      </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS (asymmetric: 7/5 + 5/4/3) -->
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 pb-32">
+      <div class="flex items-end justify-between gap-8 mb-12">
+        <div>
+          <div class="ticker mb-3">§ 02 · Pilihan minggu ini</div>
+          <h2 class="display text-[44px] md:text-[64px] text-ink-900">Yang sedang <span class="display-italic text-honey-700">hangat.</span></h2>
+        </div>
+        <a href="#/catalog" class="hidden md:inline text-[13px] underline-honey text-ink-800">Lihat semua varian →</a>
+      </div>
+
+      <div class="grid grid-cols-12 gap-6 md:gap-8 reveal-stagger">
+        <div class="col-span-12 md:col-span-7">${featured[0] ? photo(featured[0], 'aspect-[16/10]') : ''}</div>
+        <div class="col-span-12 md:col-span-5">${featured[1] ? photo(featured[1], 'aspect-[3/4]') : ''}</div>
+        <div class="col-span-12 md:col-span-4">${featured[2] ? photo(featured[2], 'aspect-square') : ''}</div>
+        <div class="col-span-12 md:col-span-5">${featured[3] ? photo(featured[3], 'aspect-[5/4]') : ''}</div>
+        <div class="col-span-12 md:col-span-3">${featured[4] ? photo(featured[4], 'aspect-[2/3]') : ''}</div>
+      </div>
+    </section>
+
+    <!-- LOCATIONS PREVIEW -->
+    <section id="locations-preview" class="bg-cream-100/50 border-y border-ink-900/5">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-28 md:py-36 grid grid-cols-12 gap-10">
+        <div class="col-span-12 md:col-span-4 reveal">
+          <div class="ticker mb-3">§ 03 · Temukan kami</div>
+          <h2 class="display text-[44px] md:text-[60px] leading-[0.95] text-ink-900">
+            Temukan <span class="display-italic text-honey-700">manisnya</span> Lu'miere.
+          </h2>
+          <p class="mt-6 text-ink-700 leading-relaxed max-w-[36ch]">Dua outlet, satu standar.</p>
+        </div>
+        <div class="col-span-12 md:col-span-8 grid sm:grid-cols-2 gap-6 reveal-stagger">
+          <div class="bg-cream-50 rounded-[18px] p-7 edge">
+            <div class="ticker">Outlet 01</div>
+            <div class="display text-[24px] text-ink-900 mt-1">Lu'miere Signature</div>
+            <p class="mt-3 text-[14px] leading-relaxed text-ink-700">Jalan Radio Dalam No.10, Gandaria Utara,<br/>Kebayoran Baru, Jakarta Selatan</p>
+            <div class="mt-5 ticker">Buka 09:13 — 21:00 · setiap hari</div>
+          </div>
+          <div class="bg-cream-50 rounded-[18px] p-7 edge">
+            <div class="ticker">Outlet 02</div>
+            <div class="display text-[24px] text-ink-900 mt-1">Lu'miere PIM 3</div>
+            <p class="mt-3 text-[14px] leading-relaxed text-ink-700">Pondok Indah Mall 3, Lt. LG Island<br/>(West Lobby), Jakarta Selatan</p>
+            <div class="mt-5 ticker">Buka 10:00 — 22:00 · mengikuti mall</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 py-28 md:py-36">
+      <div class="grid grid-cols-12 gap-8 items-end reveal">
+        <div class="col-span-12 md:col-span-8">
+          <h2 class="display text-[44px] md:text-[64px] text-ink-900">Pesan sekarang, <span class="display-italic text-honey-700">jemput nanti.</span></h2>
+          <p class="mt-6 text-ink-700 leading-relaxed max-w-[55ch]">Daftar akun gratis, simpan alamat, dan pesan langsung dari katalog. Pesanan dikonfirmasi via WhatsApp dalam 30 menit.</p>
+        </div>
+        <div class="col-span-12 md:col-span-4 md:text-right">
+          <a href="${Store.session ? '#/catalog' : '#/register'}" data-magnet class="magnet press inline-flex items-center gap-3 rounded-full bg-ink-900 text-cream-50 pl-6 pr-5 py-3 text-[14px]">
+            ${Store.session ? 'Mulai pesan' : 'Daftar dulu'}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    ${footerHTML()}
+  `;
+  bindReveals(); bindMagnets(); bindHeroDeck(); bindScrollTell();
+}
+
+//─────────────────────────────────────────────────────────────────
+// VIEW: AUTH (login + register)
+//─────────────────────────────────────────────────────────────────
+function viewAuth(mode='login') {
+  const isLogin = mode === 'login';
+  $('#app').innerHTML = `
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 grid grid-cols-1 lg:grid-cols-12 gap-10 min-h-[calc(100dvh-4rem)] items-center py-16">
+      <div class="lg:col-span-6 reveal">
+        <div class="mb-10">${logoSvg({ variant: 'stacked', height: 200 })}</div>
+        <div class="ticker mb-4">${isLogin ? '§ Masuk' : '§ Daftar akun baru'}</div>
+        <h1 class="display text-[48px] md:text-[72px] text-ink-900 leading-[0.95]">
+          ${isLogin ? 'Selamat<br/>datang <span class="display-italic text-honey-700">kembali.</span>' : 'Mulai dari<br/>satu <span class="display-italic text-honey-700">slice.</span>'}
+        </h1>
+        <p class="mt-8 text-ink-700 leading-relaxed max-w-[42ch]">
+          ${isLogin
+            ? 'Masuk untuk melanjutkan keranjang, melihat riwayat pesanan, dan menyimpan alamat pengiriman.'
+            : 'Buat akun gratis. Tidak perlu kartu, tidak ada langganan — hanya katalog yang lebih cepat dipesan.'}
+        </p>
+
+        <div class="mt-10 max-w-[44ch]">
+          <div class="ticker mb-3">Preview cepat — pilih satu</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button onclick="quickLogin('admin')" data-magnet class="magnet press text-left bg-ink-900 text-cream-50 rounded-[14px] p-5 edge-strong group">
+              <div class="ticker" style="color:#c8b896">Owner / Staff</div>
+              <div class="display text-[22px] mt-1">Login sebagai Admin</div>
+              <div class="text-[12px] text-cream-50/70 mt-1.5">Kelola katalog & pesanan</div>
+              <div class="mt-4 inline-flex items-center gap-2 text-[12px] text-honey-200">
+                Masuk panel admin
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </div>
+            </button>
+            <button onclick="quickLogin('customer')" data-magnet class="magnet press text-left bg-honey-600 text-cream-50 rounded-[14px] p-5 edge group">
+              <div class="ticker" style="color:#fbf6ec; opacity:.7">Pelanggan</div>
+              <div class="display text-[22px] mt-1">Login sebagai User</div>
+              <div class="text-[12px] text-cream-50/85 mt-1.5">Belanja & checkout cepat</div>
+              <div class="mt-4 inline-flex items-center gap-2 text-[12px] text-cream-50">
+                Masuk ke katalog
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </div>
+            </button>
+          </div>
+          <div class="mt-4 ticker">Atau pakai form di samping untuk akun custom</div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 lg:col-start-8 reveal">
+        <div class="bg-cream-50 rounded-[24px] p-8 md:p-10 edge">
+          <div class="flex items-center gap-1 mb-8">
+            <button onclick="go('/login')" class="tab ${isLogin?'active':''}">Masuk</button>
+            <button onclick="go('/register')" class="tab ${!isLogin?'active':''}">Daftar</button>
+          </div>
+
+          <form id="auth-form" class="grid gap-6">
+            ${!isLogin ? `
+              <div class="field">
+                <label for="name">Nama lengkap</label>
+                <input id="name" name="name" type="text" placeholder="cth. Cécile Marot" required autocomplete="name"/>
+              </div>` : ''}
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="anda@email.com" required autocomplete="email"/>
+            </div>
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" placeholder="${isLogin?'':'minimal 6 karakter'}" required minlength="6" autocomplete="${isLogin?'current-password':'new-password'}"/>
+              <span class="help">Disimpan lokal di browser ini saja.</span>
+            </div>
+            <div id="auth-err" class="text-[13px] text-rose-700 hidden"></div>
+            <button type="submit" data-magnet class="magnet press inline-flex items-center justify-center gap-2 rounded-full bg-ink-900 text-cream-50 px-6 py-3 text-[14px]">
+              ${isLogin ? 'Masuk' : 'Buat akun'}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </form>
+
+          <p class="mt-6 text-[13px] text-ink-700">
+            ${isLogin
+              ? `Belum punya akun? <a href="#/register" class="underline-honey text-ink-900">Daftar di sini</a>`
+              : `Sudah punya akun? <a href="#/login" class="underline-honey text-ink-900">Masuk</a>`}
+          </p>
+        </div>
+      </div>
+    </section>
+  `;
+  bindReveals(); bindMagnets();
+
+  $('#auth-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const email = fd.get('email').trim().toLowerCase();
+    const password = fd.get('password');
+    const err = $('#auth-err');
+    err.classList.add('hidden');
+
+    const users = Store.users;
+    if (isLogin) {
+      const u = users.find(x => x.email === email && x.password === password);
+      if (!u) { err.textContent = 'Email atau password salah.'; err.classList.remove('hidden'); return; }
+      Store.session = { id: u.id, name: u.name, email: u.email, role: u.role };
+      toast(`Halo, ${u.name.split(' ')[0]}`);
+      go(u.role === 'admin' ? '/admin' : '/catalog');
+    } else {
+      if (users.find(x => x.email === email)) { err.textContent = 'Email sudah terdaftar. Coba masuk.'; err.classList.remove('hidden'); return; }
+      const name = fd.get('name').trim();
+      const newUser = { id: 'u-'+uid(), name, email, password, role:'customer', createdAt: Date.now() };
+      users.push(newUser); Store.users = users;
+      Store.session = { id: newUser.id, name, email, role: 'customer' };
+      toast(`Akun dibuat. Selamat datang!`);
+      go('/catalog');
+    }
+  });
+}
+
+//─────────────────────────────────────────────────────────────────
+// VIEW: CATALOG
+//─────────────────────────────────────────────────────────────────
+function viewCatalog() {
+  if (!requireAuth()) return;
+  const products = Store.products.filter(p => p.active);
+  const params = new URLSearchParams(location.hash.split('?')[1] || '');
+  const cat = params.get('cat') || 'all';
+  const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
+
+  $('#app').innerHTML = `
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div class="grid grid-cols-12 gap-8 items-end mb-12">
+        <div class="col-span-12 md:col-span-7 reveal">
+          <div class="ticker mb-3">§ Katalog · ${products.length} varian</div>
+          <h1 class="display text-[48px] md:text-[80px] text-ink-900 leading-[0.95]">
+            Pilih yang <span class="display-italic text-honey-700">paling kamu.</span>
+          </h1>
+        </div>
+        <div class="col-span-12 md:col-span-5 md:text-right reveal">
+          <p class="text-ink-700 max-w-[40ch] md:ml-auto">Setiap varian dipanggang harian. Cek info <em>SUHU RUANGAN</em> dan <em>DALAM CHILLER</em> di tiap kartu.</p>
+        </div>
+      </div>
+
+      <!-- Category tabs -->
+      <div class="flex flex-wrap items-center gap-2 mb-12 border-b border-ink-900/10 pb-6 reveal">
+        <button onclick="go('/catalog')" class="tab ${cat==='all'?'active':''}">Semua</button>
+        ${CATEGORIES.map(c => `<button onclick="go('/catalog?cat=${encodeURIComponent(c)}')" class="tab ${cat===c?'active':''}">${c}</button>`).join('')}
+      </div>
+
+      <div class="catalog-grid grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 reveal-stagger">
+        ${filtered.map(p => productCard(p)).join('')}
+      </div>
+
+      ${filtered.length === 0 ? `
+        <div class="py-24 text-center">
+          <div class="display-italic text-[28px] text-ink-700">Belum ada varian di kategori ini.</div>
+          <a href="#/catalog" class="mt-4 inline-block underline-honey text-ink-900">Lihat semua →</a>
+        </div>` : ''}
+    </section>
+    ${footerHTML()}
+  `;
+  bindReveals(); bindMagnets();
+}
+
+function productCard(p) {
+  return `
+    <article class="group flex flex-col card-item">
+      <a href="#/product/${p.id}" class="block">
+        <div class="photo aspect-[4/5] edge">
+          <img src="${productImg(p, 700, 875)}" alt="${p.name}" loading="lazy"/>
+        </div>
+      </a>
+      <div class="mt-3 md:mt-4 flex-1 flex flex-col">
+        <div class="ticker">${p.category}</div>
+        <a href="#/product/${p.id}" class="card-name display-italic text-[18px] md:text-[22px] text-ink-900 mt-0.5 underline-honey leading-tight">${p.name}</a>
+        <div class="card-storage mt-1 text-[12.5px] text-ink-700/80 flex flex-wrap gap-x-3 gap-y-1">
+          <span>Suhu ruang · <span class="text-ink-900">${p.room}</span></span>
+          ${p.chiller ? `<span>Chiller · <span class="text-ink-900">${p.chiller}</span></span>` : ''}
+        </div>
+        <div class="mt-3 md:mt-4 flex items-center justify-between gap-2">
+          <div class="font-mono text-[13px] md:text-[14px] text-ink-900">${fmtIDR(p.price)}</div>
+          <button onclick="addToCart('${p.id}')" data-magnet aria-label="Tambah ${p.name}"
+                  class="card-add magnet press inline-flex items-center gap-1.5 rounded-full bg-ink-900 text-cream-50 pl-3 pr-3 py-1.5 text-[12px]">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            <span class="card-add-label">Tambah</span>
+          </button>
+        </div>
+      </div>
+    </article>`;
+}
+
+//─────────────────────────────────────────────────────────────────
+// VIEW: PRODUCT DETAIL
+//─────────────────────────────────────────────────────────────────
+function viewProduct(id) {
+  if (!requireAuth()) return;
+  const p = Store.products.find(x => x.id === id);
+  if (!p) { go('/catalog'); return; }
+  const related = Store.products.filter(x => x.active && x.category === p.category && x.id !== p.id).slice(0,3);
+
+  $('#app').innerHTML = `
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 py-12 md:py-16">
+      <a href="#/catalog" class="text-[13px] underline-honey text-ink-700">← Kembali ke katalog</a>
+
+      <div class="mt-8 grid grid-cols-12 gap-10 reveal">
+        <div class="col-span-12 md:col-span-7">
+          <div class="photo aspect-[4/3] edge">
+            <img src="${productImg(p, 1400, 1050)}" alt="${p.name}" loading="lazy"/>
+          </div>
+        </div>
+        <div class="col-span-12 md:col-span-5">
+          <div class="ticker">${p.category}</div>
+          <h1 class="display text-[44px] md:text-[64px] text-ink-900 mt-2 leading-[0.95]">${p.name}</h1>
+          <div class="font-mono text-[18px] text-ink-900 mt-6">${fmtIDR(p.price)}</div>
+          <p class="mt-6 text-[16px] leading-[1.7] text-ink-700">${p.desc}</p>
+
+          <div class="mt-8 grid grid-cols-2 gap-4 max-w-md">
+            <div class="bg-cream-100/60 rounded-[14px] p-4">
+              <div class="ticker">SUHU RUANGAN</div>
+              <div class="display-italic text-[20px] text-ink-900 mt-1">${p.room}</div>
+            </div>
+            ${p.chiller ? `
+              <div class="bg-cream-100/60 rounded-[14px] p-4">
+                <div class="ticker">DALAM CHILLER</div>
+                <div class="display-italic text-[20px] text-ink-900 mt-1">${p.chiller}</div>
+              </div>` : `
+              <div class="bg-cream-100/60 rounded-[14px] p-4">
+                <div class="ticker">CATATAN</div>
+                <div class="display-italic text-[15px] text-ink-900 mt-1">Hangatkan 20 detik untuk hasil terbaik.</div>
+              </div>`}
+          </div>
+
+          <div class="mt-10 flex items-center gap-4">
+            <div class="inline-flex items-center border border-ink-900/15 rounded-full">
+              <button onclick="updateDetailQty(-1)" class="press w-10 h-10 grid place-items-center text-ink-900">−</button>
+              <span id="qty" class="w-10 text-center font-mono text-[14px]">1</span>
+              <button onclick="updateDetailQty(1)" class="press w-10 h-10 grid place-items-center text-ink-900">+</button>
+            </div>
+            <button onclick="addToCart('${p.id}', parseInt(document.getElementById('qty').textContent))" data-magnet class="magnet press inline-flex items-center gap-3 rounded-full bg-honey-600 text-cream-50 pl-6 pr-5 py-3 text-[14px] edge">
+              Tambah ke keranjang
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      ${related.length ? `
+      <div class="mt-28">
+        <div class="flex items-end justify-between mb-8">
+          <h2 class="display text-[32px] md:text-[44px] text-ink-900">Lainnya dari <span class="display-italic text-honey-700">${p.category}</span></h2>
+          <a href="#/catalog?cat=${encodeURIComponent(p.category)}" class="text-[13px] underline-honey text-ink-800">Lihat semua →</a>
+        </div>
+        <div class="catalog-grid grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 reveal-stagger">
+          ${related.map(productCard).join('')}
+        </div>
+      </div>` : ''}
+    </section>
+    ${footerHTML()}
+  `;
+  bindReveals(); bindMagnets();
+}
+function updateDetailQty(delta) {
+  const el = $('#qty');
+  let v = Math.max(1, parseInt(el.textContent || '1') + delta);
+  el.textContent = v;
+}
+
+//─────────────────────────────────────────────────────────────────
+// VIEW: CART
+//─────────────────────────────────────────────────────────────────
+function viewCart() {
+  if (!requireAuth()) return;
+  const cart = Store.cart;
+  const products = Store.products;
+  const items = cart.map(i => ({ ...i, product: products.find(p => p.id === i.productId) })).filter(i => i.product);
+  const subtotal = items.reduce((s,i) => s + i.product.price * i.qty, 0);
+
+  $('#app').innerHTML = `
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div class="grid grid-cols-12 gap-8 mb-12">
+        <div class="col-span-12 md:col-span-7 reveal">
+          <div class="ticker mb-3">§ Keranjang · ${cartCount()} item</div>
+          <h1 class="display text-[48px] md:text-[72px] text-ink-900 leading-[0.95]">
+            Sudah dipilih, <span class="display-italic text-honey-700">tinggal dibawa pulang.</span>
+          </h1>
+        </div>
+      </div>
+
+      ${items.length === 0 ? `
+        <div class="py-24 text-center reveal">
+          <div class="display-italic text-[36px] text-ink-700">Keranjang masih kosong.</div>
+          <p class="mt-3 text-ink-700">Mulai dari Pandan Layers — tidak pernah salah.</p>
+          <a href="#/catalog" data-magnet class="magnet mt-8 inline-flex items-center gap-3 rounded-full bg-ink-900 text-cream-50 pl-6 pr-5 py-3 text-[14px]">
+            Ke katalog <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>` : `
+        <div class="grid grid-cols-12 gap-10">
+          <div class="col-span-12 lg:col-span-8">
+            <ul class="divide-y divide-ink-900/10 reveal-stagger">
+              ${items.map(i => `
+                <li class="grid grid-cols-12 gap-4 py-6 items-center">
+                  <a href="#/product/${i.product.id}" class="col-span-3 sm:col-span-2">
+                    <div class="photo aspect-square edge">
+                      <img src="${productImg(i.product, 300, 300)}" alt="${i.product.name}" loading="lazy"/>
+                    </div>
+                  </a>
+                  <div class="col-span-9 sm:col-span-5">
+                    <div class="ticker">${i.product.category}</div>
+                    <a href="#/product/${i.product.id}" class="display-italic text-[20px] text-ink-900 underline-honey">${i.product.name}</a>
+                    <div class="mt-1 text-[12.5px] text-ink-700/80">Suhu ruang · ${i.product.room}${i.product.chiller ? ' · Chiller ' + i.product.chiller : ''}</div>
+                  </div>
+                  <div class="col-span-6 sm:col-span-2">
+                    <div class="inline-flex items-center border border-ink-900/15 rounded-full">
+                      <button onclick="cartChange('${i.product.id}', ${i.qty - 1})" class="press w-9 h-9 grid place-items-center">−</button>
+                      <span class="w-8 text-center font-mono text-[13px]">${i.qty}</span>
+                      <button onclick="cartChange('${i.product.id}', ${i.qty + 1})" class="press w-9 h-9 grid place-items-center">+</button>
+                    </div>
+                  </div>
+                  <div class="col-span-4 sm:col-span-2 text-right font-mono text-[14px] text-ink-900">${fmtIDR(i.product.price * i.qty)}</div>
+                  <div class="col-span-2 sm:col-span-1 text-right">
+                    <button onclick="cartChange('${i.product.id}', 0)" aria-label="Hapus" class="press text-ink-700 hover:text-rose-700 transition-colors">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M5 6l1 14a2 2 0 002 2h8a2 2 0 002-2l1-14"/></svg>
+                    </button>
+                  </div>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+
+          <aside class="col-span-12 lg:col-span-4 reveal">
+            <div class="bg-cream-50 rounded-[20px] p-7 edge sticky top-24">
+              <div class="ticker mb-2">Ringkasan</div>
+              <div class="display text-[26px] text-ink-900">Total pesanan</div>
+              <div class="mt-6 space-y-3 text-[14px]">
+                <div class="flex justify-between"><span class="text-ink-700">Subtotal</span><span class="font-mono">${fmtIDR(subtotal)}</span></div>
+                <div class="flex justify-between"><span class="text-ink-700">Biaya kemasan</span><span class="font-mono">${fmtIDR(8500)}</span></div>
+                <div class="border-t border-ink-900/10 pt-3 flex justify-between text-[16px]"><span>Total</span><span class="font-mono text-ink-900">${fmtIDR(subtotal + 8500)}</span></div>
+              </div>
+              <a href="#/checkout" data-magnet class="magnet press mt-7 w-full inline-flex items-center justify-center gap-3 rounded-full bg-honey-600 text-cream-50 px-6 py-3 text-[14px] edge">
+                Lanjut ke checkout
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <a href="#/catalog" class="mt-4 block text-center text-[13px] underline-honey text-ink-700">+ Tambah varian lain</a>
+            </div>
+          </aside>
+        </div>
+      `}
+    </section>
+    ${footerHTML()}
+  `;
+  bindReveals(); bindMagnets();
+}
+function cartChange(id, qty) { setQty(id, qty); viewCart(); renderNav(); }
+
+//─────────────────────────────────────────────────────────────────
+// VIEW: CHECKOUT
+//─────────────────────────────────────────────────────────────────
+function viewCheckout() {
+  if (!requireAuth()) return;
+  const items = Store.cart.map(i => ({ ...i, product: Store.products.find(p => p.id === i.productId) })).filter(i => i.product);
+  if (items.length === 0) { go('/cart'); return; }
+  const subtotal = items.reduce((s,i) => s + i.product.price * i.qty, 0);
+  const total = subtotal + 8500;
+  const session = Store.session;
+
+  $('#app').innerHTML = `
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div class="ticker mb-3">§ Checkout</div>
+      <h1 class="display text-[44px] md:text-[64px] text-ink-900 leading-[0.95] reveal">Tinggal <span class="display-italic text-honey-700">satu langkah.</span></h1>
+
+      <div class="mt-12 grid grid-cols-12 gap-10">
+        <form id="checkout-form" class="col-span-12 lg:col-span-7 reveal">
+          <div class="bg-cream-50 rounded-[20px] p-7 md:p-8 edge">
+            <div class="display text-[22px] text-ink-900 mb-6">Detail pemesan</div>
+            <div class="grid grid-cols-2 gap-x-6 gap-y-6">
+              <div class="field col-span-2 md:col-span-1">
+                <label for="name">Nama</label>
+                <input id="name" name="name" type="text" required value="${session.name}"/>
+              </div>
+              <div class="field col-span-2 md:col-span-1">
+                <label for="phone">Nomor WhatsApp</label>
+                <input id="phone" name="phone" type="tel" required placeholder="+62 812 8473 1928"/>
+              </div>
+              <div class="field col-span-2">
+                <label for="address">Alamat pengiriman</label>
+                <input id="address" name="address" type="text" required placeholder="Jalan, nomor rumah, kelurahan, kota"/>
+              </div>
+              <div class="field col-span-2 md:col-span-1">
+                <label for="when">Tanggal diambil / dikirim</label>
+                <input id="when" name="when" type="date" required min="${new Date(Date.now()+86400000).toISOString().slice(0,10)}"/>
+              </div>
+              <div class="field col-span-2 md:col-span-1">
+                <label for="method">Metode</label>
+                <select id="method" name="method">
+                  <option value="pickup">Pickup di outlet</option>
+                  <option value="grab">GrabExpress</option>
+                  <option value="gosend">GoSend</option>
+                </select>
+              </div>
+              <div class="field col-span-2">
+                <label for="note">Catatan untuk dapur (opsional)</label>
+                <textarea id="note" name="note" rows="2" placeholder="cth. tulis 'Happy Birthday Léa', tanpa lilin"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-cream-50 rounded-[20px] p-7 md:p-8 edge mt-6">
+            <div class="display text-[22px] text-ink-900 mb-6">Pembayaran</div>
+            <div class="space-y-3">
+              ${[['transfer','Transfer Bank BCA · 7421 998 472'],['qris','QRIS · semua bank/dompet'],['cod','Bayar di outlet']].map(([v,label],i) => `
+                <label class="flex items-center gap-3 p-3 border border-ink-900/10 rounded-xl cursor-pointer hover:bg-cream-100/60 transition-colors">
+                  <input type="radio" name="pay" value="${v}" ${i===0?'checked':''} class="accent-honey-600"/>
+                  <span class="text-[14px]">${label}</span>
+                </label>`).join('')}
+            </div>
+          </div>
+        </form>
+
+        <aside class="col-span-12 lg:col-span-5 reveal">
+          <div class="bg-cream-50 rounded-[20px] p-7 edge">
+            <div class="ticker mb-2">Ringkasan</div>
+            <div class="display text-[24px] text-ink-900 mb-5">${items.length} item</div>
+            <ul class="divide-y divide-ink-900/10">
+              ${items.map(i => `
+                <li class="py-3 flex items-center gap-4">
+                  <div class="photo w-14 h-14 rounded-md edge"><img src="${productImg(i.product, 120, 120)}" alt=""/></div>
+                  <div class="flex-1 min-w-0">
+                    <div class="display-italic text-[15px] text-ink-900 truncate">${i.product.name}</div>
+                    <div class="text-[12px] text-ink-700">× ${i.qty}</div>
+                  </div>
+                  <div class="font-mono text-[13px]">${fmtIDR(i.product.price * i.qty)}</div>
+                </li>
+              `).join('')}
+            </ul>
+            <div class="mt-5 space-y-2 text-[14px]">
+              <div class="flex justify-between"><span class="text-ink-700">Subtotal</span><span class="font-mono">${fmtIDR(subtotal)}</span></div>
+              <div class="flex justify-between"><span class="text-ink-700">Biaya kemasan</span><span class="font-mono">${fmtIDR(8500)}</span></div>
+              <div class="border-t border-ink-900/10 pt-2 flex justify-between text-[16px]"><span>Total</span><span class="font-mono text-ink-900">${fmtIDR(total)}</span></div>
+            </div>
+            <button form="checkout-form" type="submit" data-magnet class="magnet press mt-7 w-full inline-flex items-center justify-center gap-3 rounded-full bg-ink-900 text-cream-50 px-6 py-3 text-[14px]">
+              Konfirmasi pesanan
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="mt-3 text-[12px] text-ink-700/80">Tim dapur akan konfirmasi via WhatsApp dalam 30 menit.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+    ${footerHTML()}
+  `;
+  bindReveals(); bindMagnets();
+
+  $('#checkout-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const order = {
+      id: 'ORD-' + Date.now().toString(36).toUpperCase(),
+      userId: session.id,
+      userEmail: session.email,
+      customer: {
+        name: fd.get('name'), phone: fd.get('phone'), address: fd.get('address'),
+      },
+      items: items.map(i => ({ productId: i.product.id, name: i.product.name, qty: i.qty, price: i.product.price })),
+      subtotal, packaging: 8500, total,
+      method: fd.get('method'), pay: fd.get('pay'), note: fd.get('note'),
+      when: fd.get('when'),
+      status: 'pending',
+      createdAt: Date.now(),
+    };
+    const orders = Store.orders; orders.push(order); Store.orders = orders;
+    Store.cart = []; renderNav();
+    go('/orders/' + order.id);
+    toast('Pesanan diterima');
+  });
+}
+
+//─────────────────────────────────────────────────────────────────
+// VIEW: ORDER CONFIRMATION + ORDERS LIST
+//─────────────────────────────────────────────────────────────────
+function viewOrderDetail(id) {
+  if (!requireAuth()) return;
+  const o = Store.orders.find(x => x.id === id);
+  if (!o) { go('/orders'); return; }
+  const session = Store.session;
+  if (session.role !== 'admin' && o.userId !== session.id) { go('/orders'); return; }
+
+  $('#app').innerHTML = `
+    <section class="max-w-[1100px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div class="mb-8">${logoSvg({ variant: 'mark', height: 56 })}</div>
+      <div class="ticker mb-3">§ Konfirmasi · ${o.id}</div>
+      <h1 class="display text-[44px] md:text-[64px] text-ink-900 leading-[0.95] reveal">
+        Terima kasih, <span class="display-italic text-honey-700">${o.customer.name.split(' ')[0]}.</span>
+      </h1>
+      <p class="mt-6 text-ink-700 max-w-[55ch] reveal">Pesanan kamu sedang kami siapkan. Konfirmasi via WhatsApp ke <span class="font-mono">${o.customer.phone}</span> dalam 30 menit.</p>
+
+      <div class="mt-12 grid grid-cols-12 gap-8 reveal">
+        <div class="col-span-12 md:col-span-7 bg-cream-50 rounded-[20px] p-7 edge">
+          <div class="display text-[22px] text-ink-900 mb-5">Detail pesanan</div>
+          <ul class="divide-y divide-ink-900/10">
+            ${o.items.map(i => `
+              <li class="py-3 flex items-center justify-between gap-4 text-[14px]">
+                <div><div class="display-italic text-[18px] text-ink-900">${i.name}</div><div class="ticker">× ${i.qty} · ${fmtIDR(i.price)}</div></div>
+                <div class="font-mono">${fmtIDR(i.price * i.qty)}</div>
+              </li>
+            `).join('')}
+          </ul>
+          <div class="mt-5 pt-4 border-t border-ink-900/10 flex justify-between text-[16px]"><span>Total</span><span class="font-mono text-ink-900">${fmtIDR(o.total)}</span></div>
+        </div>
+        <aside class="col-span-12 md:col-span-5 bg-cream-50 rounded-[20px] p-7 edge text-[14px]">
+          <div class="display text-[20px] text-ink-900 mb-4">Pengiriman</div>
+          <div class="space-y-2">
+            <div><span class="ticker">Metode</span><div>${o.method}</div></div>
+            <div><span class="ticker">Tanggal</span><div>${o.when}</div></div>
+            <div><span class="ticker">Alamat</span><div>${o.customer.address}</div></div>
+            <div><span class="ticker">Pembayaran</span><div class="capitalize">${o.pay}</div></div>
+            <div><span class="ticker">Status</span><div><span class="pill pill-${o.status}">${o.status}</span></div></div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="mt-12 flex gap-4">
+        <a href="#/catalog" class="text-[13px] underline-honey text-ink-800">← Kembali ke katalog</a>
+        <a href="#/orders" class="text-[13px] underline-honey text-ink-800">Lihat semua pesanan saya</a>
+      </div>
+    </section>
+    ${footerHTML()}
+  `;
+  bindReveals();
+}
+
+function viewOrders() {
+  if (!requireAuth()) return;
+  const session = Store.session;
+  const orders = Store.orders.filter(o => o.userId === session.id).sort((a,b) => b.createdAt - a.createdAt);
+
+  $('#app').innerHTML = `
+    <section class="max-w-[1200px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div class="ticker mb-3">§ Pesanan saya · ${orders.length}</div>
+      <h1 class="display text-[44px] md:text-[64px] text-ink-900 leading-[0.95] reveal">Riwayat <span class="display-italic text-honey-700">manis kamu.</span></h1>
+
+      ${orders.length === 0 ? `
+        <div class="py-24 text-center">
+          <div class="display-italic text-[28px] text-ink-700">Belum ada pesanan.</div>
+          <a href="#/catalog" class="mt-4 inline-block underline-honey text-ink-900">Mulai pesan →</a>
+        </div>` : `
+        <ul class="mt-12 divide-y divide-ink-900/10 reveal-stagger">
+          ${orders.map(o => `
+            <li class="grid grid-cols-12 gap-4 py-6 items-center">
+              <div class="col-span-12 md:col-span-3"><div class="ticker">${new Date(o.createdAt).toLocaleString('id-ID')}</div><div class="font-mono text-[13px] text-ink-900">${o.id}</div></div>
+              <div class="col-span-8 md:col-span-5"><div class="display-italic text-[18px] text-ink-900">${o.items.length} item · ${o.items.map(i=>i.name).slice(0,2).join(', ')}${o.items.length>2?'…':''}</div></div>
+              <div class="col-span-4 md:col-span-2 font-mono text-[14px] text-ink-900">${fmtIDR(o.total)}</div>
+              <div class="col-span-8 md:col-span-1"><span class="pill pill-${o.status}">${o.status}</span></div>
+              <div class="col-span-4 md:col-span-1 text-right"><a href="#/orders/${o.id}" class="text-[13px] underline-honey text-ink-800">Detail →</a></div>
+            </li>`).join('')}
+        </ul>`}
+    </section>
+    ${footerHTML()}
+  `;
+  bindReveals();
+}
+
+//─────────────────────────────────────────────────────────────────
+// VIEW: ADMIN
+//─────────────────────────────────────────────────────────────────
+function viewAdmin() {
+  if (!requireAdmin()) return;
+  const products = Store.products;
+  const orders = Store.orders;
+  const revenue = orders.filter(o => o.status !== 'cancelled').reduce((s,o) => s + o.total, 0);
+  const pending = orders.filter(o => o.status === 'pending').length;
+
+  $('#app').innerHTML = `
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div class="ticker mb-3">§ Admin · ${Store.session.email}</div>
+      <h1 class="display text-[44px] md:text-[64px] text-ink-900 leading-[0.95] reveal">Dashboard <span class="display-italic text-honey-700">Lu'miere.</span></h1>
+
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 reveal-stagger">
+        ${[
+          ['Total varian', products.length, products.filter(p=>p.active).length + ' aktif'],
+          ['Pesanan masuk', orders.length, pending + ' pending'],
+          ['Revenue', fmtIDR(revenue), 'sepanjang waktu'],
+          ['Pelanggan', Store.users.filter(u=>u.role==='customer').length, 'terdaftar'],
+        ].map(([label, big, sub]) => `
+          <div class="border-t border-ink-900/15 pt-5">
+            <div class="ticker">${label}</div>
+            <div class="display text-[34px] text-ink-900 mt-1">${big}</div>
+            <div class="text-[12px] text-ink-700 mt-1">${sub}</div>
+          </div>`).join('')}
+      </div>
+
+      <div class="mt-16 flex flex-wrap items-center gap-2 border-b border-ink-900/10 pb-4">
+        <a href="#/admin" class="tab active">Produk</a>
+        <a href="#/admin/orders" class="tab">Pesanan</a>
+        <div class="ml-auto">
+          <button onclick="openProductEditor()" data-magnet class="magnet press inline-flex items-center gap-2 rounded-full bg-ink-900 text-cream-50 pl-4 pr-3 py-2 text-[13px]">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Tambah produk
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-8 overflow-x-auto">
+        <table class="w-full text-[13.5px]">
+          <thead class="text-left">
+            <tr class="text-ink-700 ticker border-b border-ink-900/10">
+              <th class="py-3 pr-4">Foto</th>
+              <th class="py-3 pr-4">Nama</th>
+              <th class="py-3 pr-4">Kategori</th>
+              <th class="py-3 pr-4 text-right">Harga</th>
+              <th class="py-3 pr-4">Suhu ruang</th>
+              <th class="py-3 pr-4">Chiller</th>
+              <th class="py-3 pr-4">Status</th>
+              <th class="py-3"></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-ink-900/10">
+            ${products.map(p => `
+              <tr>
+                <td class="py-4 pr-4"><div class="photo w-12 h-12 rounded-md edge"><img src="${productImg(p, 120, 120)}" alt=""/></div></td>
+                <td class="py-4 pr-4"><div class="display-italic text-[16px] text-ink-900">${p.name}</div>${p.featured?'<span class="ticker text-honey-700">★ featured</span>':''}</td>
+                <td class="py-4 pr-4 text-ink-700">${p.category}</td>
+                <td class="py-4 pr-4 text-right font-mono text-ink-900">${fmtIDR(p.price)}</td>
+                <td class="py-4 pr-4 text-ink-700">${p.room}</td>
+                <td class="py-4 pr-4 text-ink-700">${p.chiller || '—'}</td>
+                <td class="py-4 pr-4">
+                  <button onclick="toggleActive('${p.id}')" class="pill ${p.active?'pill-confirmed':'pill-cancelled'}">
+                    ${p.active ? 'aktif' : 'nonaktif'}
+                  </button>
+                </td>
+                <td class="py-4 text-right whitespace-nowrap">
+                  <button onclick="openProductEditor('${p.id}')" class="press text-[12.5px] underline-honey text-ink-800 mr-3">Edit</button>
+                  <button onclick="deleteProduct('${p.id}')" class="press text-[12.5px] underline-honey text-rose-700">Hapus</button>
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    ${footerHTML()}
+  `;
+  bindReveals(); bindMagnets();
+}
+
+function viewAdminOrders() {
+  if (!requireAdmin()) return;
+  const orders = Store.orders.sort((a,b) => b.createdAt - a.createdAt);
+
+  $('#app').innerHTML = `
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div class="ticker mb-3">§ Admin · pesanan</div>
+      <h1 class="display text-[44px] md:text-[64px] text-ink-900 leading-[0.95] reveal">Pesanan <span class="display-italic text-honey-700">masuk.</span></h1>
+
+      <div class="mt-12 flex items-center gap-2 border-b border-ink-900/10 pb-4">
+        <a href="#/admin" class="tab">Produk</a>
+        <a href="#/admin/orders" class="tab active">Pesanan</a>
+      </div>
+
+      ${orders.length === 0 ? `
+        <div class="py-24 text-center">
+          <div class="display-italic text-[28px] text-ink-700">Belum ada pesanan masuk.</div>
+        </div>` : `
+        <div class="mt-8 overflow-x-auto">
+          <table class="w-full text-[13.5px]">
+            <thead class="text-left">
+              <tr class="text-ink-700 ticker border-b border-ink-900/10">
+                <th class="py-3 pr-4">ID</th>
+                <th class="py-3 pr-4">Waktu</th>
+                <th class="py-3 pr-4">Pelanggan</th>
+                <th class="py-3 pr-4">Item</th>
+                <th class="py-3 pr-4 text-right">Total</th>
+                <th class="py-3 pr-4">Status</th>
+                <th class="py-3"></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-ink-900/10">
+              ${orders.map(o => `
+                <tr>
+                  <td class="py-4 pr-4 font-mono text-[12px]">${o.id}</td>
+                  <td class="py-4 pr-4 text-ink-700">${new Date(o.createdAt).toLocaleString('id-ID')}</td>
+                  <td class="py-4 pr-4"><div class="text-ink-900">${o.customer.name}</div><div class="text-[12px] text-ink-700">${o.customer.phone}</div></td>
+                  <td class="py-4 pr-4 text-ink-700">${o.items.length} item</td>
+                  <td class="py-4 pr-4 text-right font-mono text-ink-900">${fmtIDR(o.total)}</td>
+                  <td class="py-4 pr-4">
+                    <span class="status-cell" data-status="${o.status}">
+                      <span class="status-dot" data-status="${o.status}"></span>
+                      <select onchange="setOrderStatus('${o.id}', this.value, this)" class="status-select">
+                        ${['pending','confirmed','completed','cancelled'].map(s => `<option ${s===o.status?'selected':''} value="${s}">${s}</option>`).join('')}
+                      </select>
+                    </span>
+                  </td>
+                  <td class="py-4 text-right"><a href="#/orders/${o.id}" class="text-[12.5px] underline-honey text-ink-800">Detail →</a></td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>`}
+    </section>
+    ${footerHTML()}
+  `;
+  bindReveals();
+}
+
+function setOrderStatus(id, status, selectEl) {
+  const orders = Store.orders.map(o => o.id === id ? { ...o, status } : o);
+  Store.orders = orders;
+  if (selectEl) {
+    const cell = selectEl.closest('.status-cell');
+    if (cell) cell.dataset.status = status;
+    const dot = cell?.querySelector('.status-dot');
+    if (dot) dot.dataset.status = status;
+  }
+  toast(`Status diubah: ${status}`);
+}
+function toggleActive(id) {
+  const products = Store.products.map(p => p.id === id ? { ...p, active: !p.active } : p);
+  Store.products = products;
+  viewAdmin();
+}
+function deleteProduct(id) {
+  const p = Store.products.find(x => x.id === id);
+  modal(`
+    <div class="modal-head">
+      <button type="button" onclick="closeModal()" class="modal-close" aria-label="Tutup">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="ticker">Konfirmasi penghapusan</div>
+      <h3 class="display text-[26px] text-ink-900 mt-1">Hapus ${p.name}?</h3>
+    </div>
+    <div class="modal-body">
+      <p class="text-ink-700 text-[14.5px] leading-relaxed">
+        Varian akan dihapus permanen dari katalog dan tidak bisa dipesan lagi.
+        Pesanan yang sudah masuk tidak terpengaruh.
+      </p>
+      <div class="mt-5 flex items-center gap-4 p-4 bg-cream-100/70 rounded-[14px]">
+        <div class="photo w-14 h-14 rounded-md edge"><img src="${productImg(p, 120, 120)}" alt=""/></div>
+        <div>
+          <div class="ticker">${p.category}</div>
+          <div class="display-italic text-[18px] text-ink-900">${p.name}</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button type="button" onclick="closeModal()" class="press px-5 py-2.5 rounded-full text-[13px] text-ink-800 hover:bg-cream-100 transition-colors">Batal</button>
+      <button type="button" onclick="confirmDelete('${id}')" class="press px-5 py-2.5 rounded-full bg-rose-700 text-cream-50 text-[13px] inline-flex items-center gap-2">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M5 6l1 14a2 2 0 002 2h8a2 2 0 002-2l1-14"/></svg>
+        Hapus permanen
+      </button>
+    </div>
+  `);
+}
+function confirmDelete(id) {
+  Store.products = Store.products.filter(p => p.id !== id);
+  closeModal(); toast('Produk dihapus'); viewAdmin();
+}
+
+function openProductEditor(id) {
+  const editing = id ? Store.products.find(p => p.id === id) : null;
+  const initialSeed = editing?.img ?? 'lumiere-' + uid();
+  modal(`
+    <form id="product-form" novalidate>
+      <div class="modal-head">
+        <button type="button" onclick="closeModal()" class="modal-close" aria-label="Tutup">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <div class="ticker">${editing ? 'Edit varian' : 'Tambah varian baru'}</div>
+        <h3 class="display text-[28px] text-ink-900 mt-1 leading-tight">${editing ? editing.name : 'Varian baru'}</h3>
+      </div>
+
+      <div class="modal-body grid gap-7">
+        <!-- Identitas -->
+        <div class="grid gap-5">
+          <div class="field">
+            <label>Nama varian</label>
+            <input name="name" required value="${editing?.name ?? ''}" placeholder="cth. Strawberry Cheesecake"/>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div class="field sm:col-span-2">
+              <label>Kategori</label>
+              <select name="category">
+                ${CATEGORIES.map(c => `<option ${editing?.category===c?'selected':''}>${c}</option>`).join('')}
+              </select>
+            </div>
+            <div class="field">
+              <label>Harga (IDR)</label>
+              <input name="price" type="number" min="0" step="500" required value="${editing?.price ?? ''}" placeholder="125000"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Daya tahan -->
+        <div class="border-t border-ink-900/10 pt-6">
+          <div class="ticker mb-4">Daya tahan</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div class="field">
+              <label>Suhu ruangan</label>
+              <input name="room" required placeholder="cth. 1 Hari" value="${editing?.room ?? ''}"/>
+            </div>
+            <div class="field">
+              <label>Dalam chiller</label>
+              <input name="chiller" placeholder="cth. 3-5 Hari" value="${editing?.chiller ?? ''}"/>
+              <span class="help">Kosongkan jika tidak perlu chiller.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Konten -->
+        <div class="border-t border-ink-900/10 pt-6 grid gap-5">
+          <div class="field">
+            <label>Deskripsi</label>
+            <textarea name="desc" rows="3" required placeholder="Cerita singkat tentang varian ini—bahan kunci, teknik, atau momen yang cocok.">${editing?.desc ?? ''}</textarea>
+          </div>
+          <div class="field">
+            <label>Image seed</label>
+            <div class="flex items-center gap-3">
+              <input id="img-seed" name="img" required value="${initialSeed}" class="flex-1"/>
+              <button type="button" onclick="refreshImgPreview(true)"
+                      class="press shrink-0 inline-flex items-center gap-1.5 rounded-full border border-ink-900/15 px-3 py-1.5 text-[12px] text-ink-800 hover:bg-cream-100 transition-colors">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 12a9 9 0 11-3-6.7M21 4v5h-5"/></svg>
+                Acak
+              </button>
+            </div>
+            <div class="mt-3 flex items-center gap-3">
+              <div class="photo w-16 h-16 rounded-md edge shrink-0">
+                <img id="img-preview" src="${productImg({ img: initialSeed, category: editing?.category ?? CATEGORIES[0] }, 200, 200)}" alt="Pratinjau gambar" loading="lazy"/>
+              </div>
+              <span class="help">Gambar akan menyesuaikan kategori (${editing?.category ?? CATEGORIES[0]}). Klik <em>Acak</em> untuk seed baru.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div class="border-t border-ink-900/10 pt-6">
+          <div class="ticker mb-4">Status di katalog</div>
+          <div class="flex flex-wrap gap-2">
+            <label class="toggle-pill">
+              <input type="checkbox" name="active" ${(editing?.active ?? true)?'checked':''}/>
+              <span class="tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span>
+              Aktif di katalog
+            </label>
+            <label class="toggle-pill">
+              <input type="checkbox" name="featured" ${editing?.featured?'checked':''}/>
+              <span class="tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="M5 13l4 4L19 7"/></svg></span>
+              Tandai featured
+            </label>
+          </div>
+          <p class="help mt-3">Varian non-aktif disembunyikan dari katalog tapi tetap muncul di pesanan lama. Featured tampil di Beranda.</p>
+        </div>
+      </div>
+
+      <div class="modal-foot">
+        <button type="button" onclick="closeModal()" class="press px-5 py-2.5 rounded-full text-[13px] text-ink-800 hover:bg-cream-100 transition-colors">Batal</button>
+        <button type="submit" class="press inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-ink-900 text-cream-50 text-[13px]">
+          ${editing ? 'Simpan perubahan' : 'Tambah produk'}
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </form>
+  `, () => {
+    const form = $('#product-form');
+    const seedEl = $('#img-seed', form);
+    const catEl = form.querySelector('[name="category"]');
+    const previewEl = $('#img-preview', form);
+    const helpEl = previewEl.parentElement.parentElement.querySelector('.help');
+    window.refreshImgPreview = function(randomize) {
+      if (randomize) seedEl.value = 'lumiere-' + Math.random().toString(36).slice(2, 9);
+      const p = { img: seedEl.value, category: catEl.value };
+      previewEl.src = productImg(p, 200, 200);
+      if (helpEl) helpEl.innerHTML = `Gambar akan menyesuaikan kategori (${catEl.value}). Klik <em>Acak</em> untuk seed baru.`;
+    };
+    catEl.addEventListener('change', () => refreshImgPreview(false));
+    seedEl.addEventListener('input', () => { previewEl.src = productImg({ img: seedEl.value, category: catEl.value }, 200, 200); });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const name = fd.get('name').trim();
+      const price = parseInt(fd.get('price'));
+      const room = fd.get('room').trim();
+      const desc = fd.get('desc').trim();
+      const img = fd.get('img').trim();
+      if (!name || !room || !desc || !img || !price) { toast('Lengkapi field wajib dulu'); return; }
+      const data = {
+        name, category: fd.get('category'), price, room,
+        chiller: fd.get('chiller').trim() || null,
+        desc, img,
+        active: fd.get('active') === 'on',
+        featured: fd.get('featured') === 'on',
+      };
+      let products = Store.products;
+      if (editing) {
+        products = products.map(p => p.id === editing.id ? { ...p, ...data } : p);
+      } else {
+        products.push({ id: 'p-' + uid(), ...data });
+      }
+      Store.products = products;
+      closeModal(); toast(editing ? 'Varian diperbarui' : 'Varian baru ditambahkan');
+      viewAdmin();
+    });
+  });
+}
+
+//─────────────────────────────────────────────────────────────────
+// VIEW: LOCATIONS
+//─────────────────────────────────────────────────────────────────
+function viewLocations() {
+  $('#app').innerHTML = `
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div class="ticker mb-3">§ Lokasi</div>
+      <h1 class="display text-[48px] md:text-[88px] text-ink-900 leading-[0.95] reveal">
+        Temukan <span class="display-italic text-honey-700">manisnya</span> Lu'miere.
+      </h1>
+
+      <div class="mt-16 grid grid-cols-12 gap-8 reveal-stagger">
+        <article class="col-span-12 md:col-span-7 bg-cream-50 rounded-[24px] p-7 md:p-10 edge">
+          <div class="ticker">Outlet 01 · Signature</div>
+          <div class="display text-[34px] md:text-[44px] text-ink-900 mt-2">Lu'miere Signature</div>
+          <p class="mt-5 text-[16px] leading-relaxed text-ink-700">
+            Outlet pertama, dibuka di Radio Dalam — dengan dapur terbuka,
+            display chilled, dan ruang duduk untuk slow afternoon coffee.
+          </p>
+          <dl class="mt-8 grid sm:grid-cols-2 gap-6 text-[14px]">
+            <div><dt class="ticker">Alamat</dt><dd class="mt-1">Jalan Radio Dalam No.10,<br/>Gandaria Utara, Kebayoran Baru,<br/>Jakarta Selatan 12140</dd></div>
+            <div><dt class="ticker">Jam buka</dt><dd class="mt-1">Senin – Minggu<br/>09:13 — 21:00</dd></div>
+            <div><dt class="ticker">Telepon</dt><dd class="mt-1 font-mono">+62 21 7278 1928</dd></div>
+            <div><dt class="ticker">WhatsApp</dt><dd class="mt-1 font-mono">+62 812 8473 1928</dd></div>
+          </dl>
+        </article>
+
+        <article class="col-span-12 md:col-span-5 bg-cream-50 rounded-[24px] p-7 md:p-10 edge">
+          <div class="ticker">Outlet 02 · Mall</div>
+          <div class="display text-[28px] md:text-[34px] text-ink-900 mt-2">Lu'miere PIM 3</div>
+          <p class="mt-5 text-[16px] leading-relaxed text-ink-700">
+            Boutique counter di tengah mall — pickup cepat untuk last-minute hadiah.
+          </p>
+          <dl class="mt-8 grid gap-5 text-[14px]">
+            <div><dt class="ticker">Alamat</dt><dd class="mt-1">Pondok Indah Mall 3,<br/>Lt. LG Island (West Lobby)</dd></div>
+            <div><dt class="ticker">Jam buka</dt><dd class="mt-1">10:00 — 22:00 · mengikuti mall</dd></div>
+            <div><dt class="ticker">WhatsApp</dt><dd class="mt-1 font-mono">+62 812 8473 4702</dd></div>
+          </dl>
+        </article>
+      </div>
+
+      <div class="mt-20 reveal">
+        <div class="display text-[28px] md:text-[36px] text-ink-900">Bisa juga lewat <span class="display-italic text-honey-700">delivery.</span></div>
+        <p class="mt-3 text-ink-700 max-w-[55ch]">GrabFood, GoFood, ShopeeFood — atau pesan langsung dari katalog kami untuk GrabExpress / GoSend dengan paket khusus chilled.</p>
+        <a href="#/catalog" class="mt-6 inline-flex items-center gap-2 underline-honey text-ink-900 text-[14px]">Pesan sekarang →</a>
+      </div>
+    </section>
+    ${footerHTML()}
+  `;
+  bindReveals();
+}
+
+//─────────────────────────────────────────────────────────────────
+// VIEW: ABOUT
+//─────────────────────────────────────────────────────────────────
+function viewAbout() {
+  $('#app').innerHTML = `
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div class="mb-12 reveal">${logoSvg({ variant: 'stacked', height: 160 })}</div>
+      <div class="ticker mb-3">§ Tentang</div>
+      <h1 class="display text-[48px] md:text-[88px] text-ink-900 leading-[0.95] reveal">
+        Sebuah cerita yang <span class="display-italic text-honey-700">manis.</span>
+      </h1>
+
+      <div class="mt-16 grid grid-cols-12 gap-12 reveal">
+        <div class="col-span-12 md:col-span-7">
+          <p class="display text-[26px] md:text-[34px] leading-[1.15] text-ink-900">
+            Lu'miere lahir dari satu kebiasaan kecil: setiap pukul empat sore,
+            <span class="display-italic text-honey-700">selalu ada waktu untuk kue.</span>
+          </p>
+          <div class="mt-8 space-y-5 text-[16px] leading-[1.75] text-ink-700">
+            <p>Kami mulai di dapur kecil di Radio Dalam pada Mei 2014, dengan empat resep yang dipanggang ulang puluhan kali sampai teksturnya tepat. Chiffon yang lembut tapi tetap kokoh, japanese roll yang tidak pecah waktu digulung, kue asix yang mengikuti resep nenek tanpa shortcut, roti sobek yang masih terasa hangat di tangan.</p>
+            <p>Sekarang Lu'miere ada di dua titik di Jakarta Selatan, dengan tim kecil yang sama-sama percaya: kue terbaik bukan yang paling rumit, tapi yang dibuat dengan perhatian penuh — setiap hari, setiap loyang, setiap pukul empat sore.</p>
+            <p class="display-italic text-ink-900">It's a cake o'clock — selalu, dan untuk siapa saja.</p>
+          </div>
+        </div>
+        <div class="col-span-12 md:col-span-5">
+          <div class="photo aspect-[4/5] edge">
+            <img src="${tagImg('lumiere-about-kitchen-v2', 'bakery,kitchen,baking,patisserie', 900, 1125)}" alt="Dapur Lu'miere, sore hari" loading="lazy"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-32 grid grid-cols-12 gap-8 reveal-stagger">
+        ${[
+          ['12', 'varian dipanggang harian'],
+          ['2014', 'tahun pertama dibuka'],
+          ['47', 'loyang per hari rata-rata'],
+          ['9:13', 'oven dinyalakan'],
+        ].map(([n, l]) => `
+          <div class="col-span-6 md:col-span-3 border-t border-ink-900/15 pt-5">
+            <div class="display text-[44px] md:text-[60px] text-ink-900">${n}</div>
+            <div class="text-[13px] text-ink-700 mt-1">${l}</div>
+          </div>`).join('')}
+      </div>
+    </section>
+    ${footerHTML()}
+  `;
+  bindReveals();
+}
+
+//─────────────────────────────────────────────────────────────────
+// FOOTER
+//─────────────────────────────────────────────────────────────────
+function footerHTML() {
+  return `
+    <footer class="bg-mocha-900 text-cream-50 mt-20">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-14 md:py-20 grid grid-cols-12 gap-8 md:gap-10">
+        <div class="col-span-12 md:col-span-5">
+          ${logoSvg({ variant: 'stacked', height: 140, onDark: true })}
+          <p class="mt-6 md:mt-8 text-[14px] leading-relaxed text-cream-50/80 max-w-[40ch]">
+            Signature cake studio. Dipanggang harian di Jakarta Selatan, untuk dibawa pulang atau diantar.
+          </p>
+          <p class="mt-5 ticker" style="color:#c8b896">#SpesialSetiapSaat</p>
+        </div>
+        <div class="col-span-6 sm:col-span-6 md:col-span-3 min-w-0">
+          <div class="ticker mb-4" style="color:#c8b896">Jelajahi</div>
+          <ul class="space-y-2 text-[14px]">
+            <li><a href="#/" class="underline-honey">Beranda</a></li>
+            <li><a href="#/catalog" class="underline-honey">Katalog</a></li>
+            <li><a href="#/locations" class="underline-honey">Lokasi</a></li>
+            <li><a href="#/about" class="underline-honey">Tentang</a></li>
+          </ul>
+        </div>
+        <div class="col-span-12 sm:col-span-6 md:col-span-4 min-w-0">
+          <div class="ticker mb-4" style="color:#c8b896">Hubungi kami</div>
+          <ul class="space-y-2 text-[13px] md:text-[14px] break-words">
+            <li class="font-mono">+62 812 8473 1928</li>
+            <li class="font-mono break-all">halo@lumiere.id</li>
+            <li><a href="https://www.instagram.com/lumieresignature_/" target="_blank" rel="noopener" class="underline-honey break-all">@lumieresignature_</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-cream-50/10">
+        <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[12px] text-cream-50/60">
+          <div>© ${new Date().getFullYear()} Lu'miere Signature · Jakarta · Dibuat dengan tangan, dipanggang dengan sabar.</div>
+          <div class="flex gap-5">
+            <a href="#" class="underline-honey">Kebijakan Privasi</a>
+            <a href="#" class="underline-honey">Syarat &amp; Ketentuan</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  `;
+}
+
+//─────────────────────────────────────────────────────────────────
+// ROUTER
+//─────────────────────────────────────────────────────────────────
+function route() {
+  const raw = currentPath();
+  const [path, _] = raw.split('?');
+  window.scrollTo(0, 0);
+
+  // simple matching
+  if (path === '/' || path === '') return viewHome();
+  if (path === '/login') return viewAuth('login');
+  if (path === '/register') return viewAuth('register');
+  if (path === '/catalog') return viewCatalog();
+  if (path.startsWith('/product/')) return viewProduct(path.split('/')[2]);
+  if (path === '/cart') return viewCart();
+  if (path === '/checkout') return viewCheckout();
+  if (path === '/orders') return viewOrders();
+  if (path.startsWith('/orders/')) return viewOrderDetail(path.split('/')[2]);
+  if (path === '/admin') return viewAdmin();
+  if (path === '/admin/orders') return viewAdminOrders();
+  if (path === '/locations') return viewLocations();
+  if (path === '/about') return viewAbout();
+
+  // fallback
+  viewHome();
+}
+
+window.addEventListener('hashchange', () => { route(); renderNav(); closeMobileMenu(); });
+window.addEventListener('DOMContentLoaded', () => { renderNav(); route(); });
+</script>
+
+</body>
+</html>

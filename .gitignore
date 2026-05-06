@@ -1,0 +1,12 @@
+# Local dev
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+
+# Netlify state (project-specific binding, not for repo)
+.netlify/
+
+# Editor
+.vscode/
+.idea/
