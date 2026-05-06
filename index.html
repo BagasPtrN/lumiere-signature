@@ -482,6 +482,53 @@
   .tab.active { background: #1f1812; color: #fbf6ec; }
   .tab:not(.active):hover { background: #f5ecd9; }
 
+  /* Analytics charts */
+  .stat-card {
+    border-top: 1px solid rgba(31,24,18,0.15);
+    padding-top: 18px;
+  }
+  .stat-card .num { font-family: 'Fraunces', serif; font-variation-settings: "opsz" 144; letter-spacing: -0.025em; line-height: 1; }
+  .stat-trend {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 2px 8px; border-radius: 999px;
+    font-size: 11px; font-family: 'JetBrains Mono', ui-monospace; letter-spacing: 0.02em;
+  }
+  .stat-trend.up   { background: rgba(90,115,68,0.14); color: #3a4a35; }
+  .stat-trend.down { background: rgba(154,61,61,0.14); color: #9a3d3d; }
+  .stat-trend.flat { background: rgba(31,24,18,0.08); color: #6b6055; }
+  .chart-card {
+    background: #fbf6ec;
+    border: 1px solid rgba(31,24,18,0.08);
+    border-radius: 22px;
+    padding: 20px 18px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 16px 36px -22px rgba(40,28,12,0.18);
+    min-width: 0;
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .chart-card { padding: 24px 26px; }
+  }
+  .chart-card .chart-title {
+    font-family: 'Fraunces', serif; font-size: 22px; color: #1f1812; letter-spacing: -0.02em;
+  }
+  .chart-card .chart-sub {
+    font-family: 'JetBrains Mono', ui-monospace; font-size: 10.5px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: #6b6055;
+  }
+  .insight-row {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 0; border-top: 1px solid rgba(31,24,18,0.06);
+  }
+  .insight-row:first-child { border-top: 0; }
+  .insight-icon {
+    flex-shrink: 0; width: 28px; height: 28px; border-radius: 9999px;
+    display: grid; place-items: center; font-family: 'JetBrains Mono', ui-monospace; font-size: 11px;
+  }
+  .insight-icon.up   { background: rgba(90,115,68,0.18); color: #3a4a35; }
+  .insight-icon.warn { background: rgba(184,122,38,0.18); color: #9a651e; }
+  .insight-icon.alert{ background: rgba(154,61,61,0.18); color: #9a3d3d; }
+  .insight-icon.info { background: rgba(31,24,18,0.08); color: #4a3c30; }
+
   /* Status pill */
   .pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 500; }
   .pill-pending { background: #f5ecd9; color: #9a651e; }
@@ -2141,6 +2188,498 @@ function viewOrders() {
 //─────────────────────────────────────────────────────────────────
 // VIEW: ADMIN
 //─────────────────────────────────────────────────────────────────
+//─────────────────────────────────────────────────────────────────
+// ANALYTICS — aggregator + chart helpers + view
+//─────────────────────────────────────────────────────────────────
+function getAnalytics(rangeDays = 30) {
+  const orders = Store.orders.filter(o => o.status !== 'cancelled');
+  const products = Store.products;
+  const now = Date.now();
+  const cutoff = now - rangeDays * 86400000;
+  const inRange = orders.filter(o => o.createdAt >= cutoff);
+
+  const revenue   = inRange.reduce((s, o) => s + o.total, 0);
+  const orderCount = inRange.length;
+  const aov       = orderCount ? revenue / orderCount : 0;
+  const itemsSold = inRange.reduce((s, o) => s + o.items.reduce((s2, i) => s2 + i.qty, 0), 0);
+
+  // Period-over-period comparison (prev window of same length)
+  const prevStart = cutoff - rangeDays * 86400000;
+  const prev = orders.filter(o => o.createdAt >= prevStart && o.createdAt < cutoff);
+  const prevRevenue = prev.reduce((s, o) => s + o.total, 0);
+  const prevOrders = prev.length;
+  const wowChange  = prevRevenue > 0 ? ((revenue - prevRevenue) / prevRevenue) * 100 : (revenue > 0 ? 100 : 0);
+  const wowOrders  = prevOrders  > 0 ? ((orderCount - prevOrders) / prevOrders) * 100 : (orderCount > 0 ? 100 : 0);
+
+  // Daily buckets for the range
+  const days = [];
+  for (let i = rangeDays - 1; i >= 0; i--) {
+    const d = new Date(now - i * 86400000);
+    const dayStart = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+    const dayEnd = dayStart + 86400000;
+    const dayOrders = inRange.filter(o => o.createdAt >= dayStart && o.createdAt < dayEnd);
+    days.push({
+      label: `${d.getDate()}/${d.getMonth()+1}`,
+      value: dayOrders.reduce((s, o) => s + o.total, 0),
+      orders: dayOrders.length,
+      iso: d.toISOString().slice(0,10),
+    });
+  }
+
+  // Category breakdown
+  const catMap = {};
+  inRange.forEach(o => o.items.forEach(i => {
+    const product = products.find(p => p.id === i.productId);
+    const cat = product?.category || 'Lainnya';
+    catMap[cat] = (catMap[cat] || 0) + (i.price * i.qty);
+  }));
+  const categories = Object.entries(catMap).map(([label, value]) => ({label, value})).sort((a,b) => b.value - a.value);
+
+  // Top products by revenue
+  const productMap = {};
+  inRange.forEach(o => o.items.forEach(i => {
+    productMap[i.productId] = productMap[i.productId] || { id: i.productId, label: i.name, value: 0, qty: 0 };
+    productMap[i.productId].value += i.price * i.qty;
+    productMap[i.productId].qty += i.qty;
+  }));
+  const topProducts = Object.values(productMap).sort((a,b) => b.value - a.value).slice(0, 6);
+
+  // Slow movers — active products with no sales in range
+  const sold = new Set(inRange.flatMap(o => o.items.map(i => i.productId)));
+  const slowMovers = products.filter(p => p.active && !sold.has(p.id));
+
+  // Monthly (last 12 months) — uses ALL orders not just range
+  const months = [];
+  for (let i = 11; i >= 0; i--) {
+    const d = new Date(now);
+    d.setMonth(d.getMonth() - i);
+    const monthStart = new Date(d.getFullYear(), d.getMonth(), 1).getTime();
+    const monthEnd = new Date(d.getFullYear(), d.getMonth() + 1, 1).getTime();
+    const monthOrders = orders.filter(o => o.createdAt >= monthStart && o.createdAt < monthEnd);
+    months.push({
+      label: d.toLocaleDateString('id-ID', { month: 'short' }).slice(0,3),
+      value: monthOrders.reduce((s, o) => s + o.total, 0),
+      orders: monthOrders.length,
+    });
+  }
+
+  // Yearly (last 3 years)
+  const years = [];
+  for (let i = 2; i >= 0; i--) {
+    const yr = new Date(now).getFullYear() - i;
+    const yrStart = new Date(yr, 0, 1).getTime();
+    const yrEnd = new Date(yr + 1, 0, 1).getTime();
+    const yrOrders = orders.filter(o => o.createdAt >= yrStart && o.createdAt < yrEnd);
+    years.push({
+      label: String(yr),
+      value: yrOrders.reduce((s, o) => s + o.total, 0),
+      orders: yrOrders.length,
+    });
+  }
+
+  // Per-product velocity (qty in last 7 days vs prev 7) — for stock recommendations
+  const wk1Cut = now - 7 * 86400000;
+  const wk2Cut = now - 14 * 86400000;
+  const productVel = {};
+  orders.forEach(o => {
+    const isWk1 = o.createdAt >= wk1Cut;
+    const isWk2 = o.createdAt >= wk2Cut && o.createdAt < wk1Cut;
+    if (!isWk1 && !isWk2) return;
+    o.items.forEach(i => {
+      const p = products.find(x => x.id === i.productId);
+      if (!p) return;
+      productVel[i.productId] = productVel[i.productId] || { id: i.productId, name: p.name, category: p.category, wk1:0, wk2:0 };
+      if (isWk1) productVel[i.productId].wk1 += i.qty;
+      else productVel[i.productId].wk2 += i.qty;
+    });
+  });
+  const trending = Object.values(productVel).map(v => ({
+    ...v,
+    delta: v.wk2 > 0 ? ((v.wk1 - v.wk2) / v.wk2) * 100 : (v.wk1 > 0 ? 100 : 0),
+  })).filter(v => v.wk1 > 0 || v.wk2 > 0);
+
+  return {
+    revenue, orderCount, aov, itemsSold,
+    prevRevenue, wowChange, wowOrders,
+    days, months, years, categories, topProducts, slowMovers, trending,
+  };
+}
+
+// ─── Chart helpers (pure SVG) ───────────────────────────────────
+const CHART_COLORS = ['#b87a26', '#5a7344', '#9a3d3d', '#3a2c20', '#dca053', '#9a651e'];
+
+function lineChart(data) {
+  const w = 720, h = 240;
+  const pad = { l: 18, r: 18, t: 22, b: 28 };
+  const max = Math.max(1, ...data.map(d => d.value));
+  const xs = data.map((_, i) => pad.l + (data.length === 1 ? 0 : (i / (data.length - 1)) * (w - pad.l - pad.r)));
+  const ys = data.map(d => h - pad.b - (d.value / max) * (h - pad.b - pad.t));
+  const path = xs.map((x, i) => (i ? 'L' : 'M') + x.toFixed(1) + ' ' + ys[i].toFixed(1)).join(' ');
+  const area = path + ` L ${xs[xs.length-1].toFixed(1)} ${(h - pad.b).toFixed(1)} L ${xs[0].toFixed(1)} ${(h - pad.b).toFixed(1)} Z`;
+
+  // Sparse x labels: ~6 of them
+  const labelStep = Math.max(1, Math.ceil(data.length / 6));
+  const yTicks = [0, max * 0.5, max].map(v => h - pad.b - (v / max) * (h - pad.b - pad.t));
+  return `
+    <svg viewBox="0 0 ${w} ${h}" class="w-full h-auto" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="lc-area" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#b87a26" stop-opacity="0.28"/>
+          <stop offset="100%" stop-color="#b87a26" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      ${yTicks.map((y) => `<line x1="${pad.l}" y1="${y}" x2="${w-pad.r}" y2="${y}" stroke="rgba(31,24,18,0.06)" stroke-width="1"/>`).join('')}
+      <path d="${area}" fill="url(#lc-area)"/>
+      <path d="${path}" fill="none" stroke="#b87a26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      ${xs.map((x, i) => `<circle cx="${x}" cy="${ys[i]}" r="${data[i].value > 0 ? 2.5 : 1.5}" fill="${data[i].value > 0 ? '#b87a26' : '#d4c8b0'}"/>`).join('')}
+      ${data.map((d, i) => i % labelStep === 0 || i === data.length - 1 ? `<text x="${xs[i]}" y="${h - 8}" font-family="JetBrains Mono" font-size="9.5" fill="#6b6055" text-anchor="middle">${d.label}</text>` : '').join('')}
+    </svg>`;
+}
+
+function barChart(data) {
+  const w = 720, h = 220;
+  const pad = { l: 18, r: 18, t: 30, b: 28 };
+  const max = Math.max(1, ...data.map(d => d.value));
+  const innerW = w - pad.l - pad.r;
+  const slot = innerW / data.length;
+  const barW = Math.max(8, slot * 0.62);
+  const yTicks = [0, max * 0.5, max].map(v => h - pad.b - (v / max) * (h - pad.b - pad.t));
+  return `
+    <svg viewBox="0 0 ${w} ${h}" class="w-full h-auto" preserveAspectRatio="none">
+      ${yTicks.map((y) => `<line x1="${pad.l}" y1="${y}" x2="${w-pad.r}" y2="${y}" stroke="rgba(31,24,18,0.06)" stroke-width="1"/>`).join('')}
+      ${data.map((d, i) => {
+        const x = pad.l + i * slot + (slot - barW) / 2;
+        const bh = (d.value / max) * (h - pad.b - pad.t);
+        const y = h - pad.b - bh;
+        const has = d.value > 0;
+        return `
+          <rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(2, bh).toFixed(1)}" rx="3" fill="${has ? '#b87a26' : '#ead9b8'}" opacity="${has?0.92:0.55}"/>
+          <text x="${(x + barW/2).toFixed(1)}" y="${(h - 10)}" font-family="JetBrains Mono" font-size="10" fill="#6b6055" text-anchor="middle">${d.label}</text>
+        `;
+      }).join('')}
+    </svg>`;
+}
+
+function donutChart(data) {
+  const total = data.reduce((s, d) => s + d.value, 0);
+  if (total <= 0) {
+    return `<div class="flex items-center justify-center h-[200px] text-[13px] text-ink-700/70">Belum ada data</div>`;
+  }
+  const cx = 90, cy = 90, r = 64, sw = 18;
+  const C = 2 * Math.PI * r;
+  let offset = 0;
+  const segs = data.map((d, i) => {
+    const len = (d.value / total) * C;
+    const seg = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none"
+      stroke="${CHART_COLORS[i % CHART_COLORS.length]}" stroke-width="${sw}"
+      stroke-dasharray="${len.toFixed(2)} ${(C - len).toFixed(2)}"
+      stroke-dashoffset="${(-offset).toFixed(2)}"
+      transform="rotate(-90 ${cx} ${cy})"/>`;
+    offset += len;
+    return seg;
+  }).join('');
+  return `
+    <div class="flex flex-col items-center gap-5">
+      <svg viewBox="0 0 180 180" width="160" height="160" class="shrink-0">
+        ${segs}
+        <text x="${cx}" y="${cy-2}" font-family="Fraunces" font-size="30" font-weight="700" fill="#1f1812" text-anchor="middle">${data.length}</text>
+        <text x="${cx}" y="${cy+18}" font-family="JetBrains Mono" font-size="9" fill="#6b6055" text-anchor="middle" letter-spacing="2">KATEGORI</text>
+      </svg>
+      <ul class="w-full space-y-3 text-[13px]">
+        ${data.map((d, i) => {
+          const pct = Math.round((d.value / total) * 100);
+          return `
+          <li class="grid grid-cols-[auto_1fr_auto] items-center gap-2.5 min-w-0">
+            <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${CHART_COLORS[i % CHART_COLORS.length]}"></span>
+            <span class="truncate text-ink-900">${d.label} <span class="ticker ml-1">${pct}%</span></span>
+            <span class="font-mono text-[12px] text-ink-900 whitespace-nowrap">${fmtIDR(d.value)}</span>
+          </li>`;
+        }).join('')}
+      </ul>
+    </div>`;
+}
+
+function topProductsList(items) {
+  if (!items || !items.length) return `<div class="text-[13px] text-ink-700/70 py-8 text-center">Belum ada penjualan di periode ini.</div>`;
+  const max = Math.max(1, ...items.map(i => i.value));
+  return `<ul class="space-y-4">
+    ${items.map((it, i) => `
+      <li>
+        <div class="flex items-baseline gap-3 min-w-0">
+          <span class="ticker text-ink-700/70 shrink-0 w-6">#${i+1}</span>
+          <div class="flex-1 min-w-0">
+            <div class="display-italic text-[15px] text-ink-900 truncate">${it.label}</div>
+            <div class="ticker mt-0.5">× ${it.qty} terjual</div>
+          </div>
+          <div class="font-mono text-[12.5px] text-ink-900 shrink-0 whitespace-nowrap">${fmtIDR(it.value)}</div>
+        </div>
+        <div class="mt-2.5 h-1.5 rounded-full bg-cream-100 overflow-hidden">
+          <div class="h-full bg-honey-600 rounded-full" style="width: ${((it.value/max)*100).toFixed(1)}%"></div>
+        </div>
+      </li>
+    `).join('')}
+  </ul>`;
+}
+
+function statTrend(pct) {
+  const v = Math.round(pct);
+  if (Math.abs(v) < 1) return `<span class="stat-trend flat">— stabil</span>`;
+  const cls = v > 0 ? 'up' : 'down';
+  const arrow = v > 0 ? '↑' : '↓';
+  return `<span class="stat-trend ${cls}">${arrow} ${Math.abs(v)}%</span>`;
+}
+
+// ─── Demo data seeder for analytics ─────────────────────────────
+function seedDemoOrders() {
+  modal(`
+    <div class="modal-head">
+      <button type="button" onclick="closeModal()" class="modal-close" aria-label="Tutup">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="ticker">Generate data demo</div>
+      <h3 class="display text-[26px] text-ink-900 mt-1">Buat 50 pesanan demo?</h3>
+    </div>
+    <div class="modal-body">
+      <p class="text-ink-700 text-[14.5px] leading-relaxed">
+        Akan men-generate 50 pesanan acak dengan tanggal tersebar 60 hari ke belakang,
+        12 nama pelanggan berbeda, dan distribusi status realistis. Pesanan demo
+        ditandai dengan ID berawalan <code class="font-mono text-[12px]">ORD-DEMO-</code>
+        sehingga bisa dihapus terpisah nanti.
+      </p>
+      <p class="text-ink-700 text-[13px] leading-relaxed mt-3">
+        Berguna untuk preview dashboard analisis dengan data yang lebih kaya.
+      </p>
+    </div>
+    <div class="modal-foot">
+      <button type="button" onclick="closeModal()" class="press px-5 py-2.5 rounded-full text-[13px] text-ink-800 hover:bg-cream-100 transition-colors">Batal</button>
+      <button type="button" onclick="confirmSeedDemo()" class="press px-5 py-2.5 rounded-full bg-honey-600 text-cream-50 text-[13px] inline-flex items-center gap-2">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 5v14M5 12h14"/></svg>
+        Generate 50 pesanan
+      </button>
+    </div>
+  `);
+}
+function confirmSeedDemo() {
+  const products = Store.products.filter(p => p.active);
+  if (products.length === 0) { closeModal(); toast('Tidak ada produk aktif'); return; }
+  const customerNames = ['Cécile Marot','Béatrice Wendt','Inès Roussel','Théo Marquis','Marin Loubet','Solène Vergne','Juliette Lambert','Adrien Beaumont','Camille Dubois','Léa Mercier','Hugo Petit','Manon Renard'];
+  const orders = Store.orders;
+  const now = Date.now();
+  const COUNT = 50;
+  for (let i = 0; i < COUNT; i++) {
+    const ageDays = Math.random() * 60;
+    const ts = now - ageDays * 86400000 - Math.random() * 86400000;
+    const numItems = 1 + Math.floor(Math.random() * 4);
+    const items = [];
+    for (let j = 0; j < numItems; j++) {
+      const p = products[Math.floor(Math.random() * products.length)];
+      const qty = 1 + Math.floor(Math.random() * 3);
+      items.push({ productId: p.id, name: p.name, qty, price: p.price });
+    }
+    const subtotal = items.reduce((s, it) => s + it.price * it.qty, 0);
+    const total = subtotal + 8500;
+    const status = ageDays < 1 ? (Math.random() < 0.5 ? 'pending' : 'confirmed') :
+                   ageDays < 3 ? (Math.random() < 0.7 ? 'confirmed' : 'completed') :
+                   (Math.random() < 0.95 ? 'completed' : 'cancelled');
+    const phone1 = 1000 + Math.floor(Math.random() * 9000);
+    const phone2 = 1000 + Math.floor(Math.random() * 9000);
+    orders.push({
+      id: 'ORD-DEMO-' + uid().toUpperCase(),
+      userId: 'demo-' + (i % 12), userEmail: 'demo@lumiere.id',
+      customer: { name: customerNames[i % customerNames.length], phone: `+62 812 ${phone1} ${phone2}`, address: 'Jakarta Selatan' },
+      items, subtotal, packaging: 8500, total,
+      method: ['pickup','grab','gosend'][Math.floor(Math.random() * 3)],
+      pay: ['transfer','qris','cod'][Math.floor(Math.random() * 3)],
+      note: '',
+      when: new Date(ts + 86400000).toISOString().slice(0,10),
+      status, createdAt: ts,
+    });
+  }
+  Store.orders = orders;
+  closeModal();
+  toast(`${COUNT} pesanan demo dibuat`);
+  viewAdminAnalytics();
+}
+function clearDemoOrders() {
+  const before = Store.orders.length;
+  Store.orders = Store.orders.filter(o => !o.id.startsWith('ORD-DEMO-'));
+  toast(`${before - Store.orders.length} pesanan demo dihapus`);
+  viewAdminAnalytics();
+}
+
+// ─── Analytics view ─────────────────────────────────────────────
+function viewAdminAnalytics() {
+  if (!requireAdmin()) return;
+  const params = new URLSearchParams(location.hash.split('?')[1] || '');
+  const range = parseInt(params.get('range') || '30', 10);
+  const a = getAnalytics(range);
+  const hasDemoOrders = Store.orders.some(o => o.id.startsWith('ORD-DEMO-'));
+
+  const insights = [];
+  // Top trending up
+  const grow = a.trending.filter(t => t.delta > 20).sort((x,y) => y.delta - x.delta).slice(0,2);
+  grow.forEach(g => insights.push({ icon: '↑', cls: 'up', label: `${g.name} naik ${Math.round(g.delta)}%`, text: 'pekan ini vs pekan lalu — pertimbangkan tambah stok atau highlight di katalog.' }));
+  // Top trending down
+  const decline = a.trending.filter(t => t.delta < -20 && t.wk2 >= 2).sort((x,y) => x.delta - y.delta).slice(0,2);
+  decline.forEach(d => insights.push({ icon: '↓', cls: 'warn', label: `${d.name} turun ${Math.abs(Math.round(d.delta))}%`, text: 'review pricing, tampilan foto, atau jadwalkan promo.' }));
+  // Slow movers
+  if (a.slowMovers.length > 0 && a.orderCount > 5) {
+    insights.push({ icon: '!', cls: 'alert', label: `${a.slowMovers.length} varian belum terjual`, text: `${a.slowMovers.slice(0,3).map(p=>p.name).join(', ')}${a.slowMovers.length>3?'...':''} — pertimbangkan turunkan stok atau bundle promo.` });
+  }
+  // Average order value
+  if (a.aov > 0) {
+    insights.push({ icon: 'i', cls: 'info', label: `Avg order ${fmtIDR(Math.round(a.aov))}`, text: `${a.itemsSold} item terjual dari ${a.orderCount} pesanan — rata-rata ${(a.itemsSold/a.orderCount||0).toFixed(1)} item per pesanan.` });
+  }
+  // Best category
+  if (a.categories.length > 0) {
+    const top = a.categories[0];
+    const pct = Math.round((top.value / a.revenue) * 100);
+    insights.push({ icon: '★', cls: 'up', label: `${top.label} dominan ${pct}%`, text: `Kategori penyumbang revenue terbesar — pastikan stok cukup dan eksposur tinggi.` });
+  }
+  if (insights.length === 0) {
+    insights.push({ icon: 'i', cls: 'info', label: 'Belum cukup data', text: 'Generate pesanan demo atau tunggu transaksi masuk untuk melihat insight.' });
+  }
+
+  const ranges = [
+    { v: 7,   label: '7 Hari' },
+    { v: 30,  label: '30 Hari' },
+    { v: 90,  label: '3 Bulan' },
+    { v: 365, label: '12 Bulan' },
+  ];
+
+  $('#app').innerHTML = `
+    <section class="max-w-[1400px] mx-auto px-6 md:px-10 py-12 md:py-20">
+      <div class="ticker mb-3">§ Admin · analisis</div>
+      <h1 class="display text-[40px] md:text-[64px] text-ink-900 leading-[0.95] reveal">Analisis <span class="display-italic text-honey-700">marketing.</span></h1>
+      <p class="mt-4 text-ink-700 max-w-[58ch]">Pantau performa harian, bulanan, dan tahunan untuk menyusun strategi pricing, eksposur produk, dan stok dapur.</p>
+
+      <!-- Tab nav + actions -->
+      <div class="mt-10 flex flex-wrap items-center gap-2 border-b border-ink-900/10 pb-4">
+        <a href="#/admin" class="tab">Produk</a>
+        <a href="#/admin/orders" class="tab">Pesanan</a>
+        <a href="#/admin/analytics" class="tab active">Analisis</a>
+        <div class="ml-auto flex flex-wrap items-center gap-2">
+          ${hasDemoOrders ? `<button onclick="clearDemoOrders()" class="press inline-flex items-center gap-2 rounded-full border border-rose-700/30 px-3 py-1.5 text-[12px] text-rose-700 hover:bg-rose-700/5 transition-colors">Hapus data demo</button>` : ''}
+          <button onclick="seedDemoOrders()" class="press inline-flex items-center gap-2 rounded-full bg-ink-900 text-cream-50 pl-4 pr-3 py-2 text-[12.5px]">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 5v14M5 12h14"/></svg>
+            Generate data demo
+          </button>
+        </div>
+      </div>
+
+      <!-- Range selector -->
+      <div class="mt-8 flex flex-wrap items-center gap-2">
+        <span class="ticker mr-2">Rentang waktu:</span>
+        ${ranges.map(r => `<a href="#/admin/analytics?range=${r.v}" class="tab ${range===r.v?'active':''}">${r.label}</a>`).join('')}
+      </div>
+
+      <!-- KPI cards -->
+      <div class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="stat-card">
+          <div class="ticker">Revenue</div>
+          <div class="num text-[34px] md:text-[44px] text-ink-900 mt-2">${fmtIDR(a.revenue)}</div>
+          <div class="mt-3 flex items-center gap-2 text-[11.5px] text-ink-700">${statTrend(a.wowChange)} <span>vs ${range} hari sebelumnya</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="ticker">Pesanan</div>
+          <div class="num text-[34px] md:text-[44px] text-ink-900 mt-2">${a.orderCount}</div>
+          <div class="mt-3 flex items-center gap-2 text-[11.5px] text-ink-700">${statTrend(a.wowOrders)} <span>vs periode lalu</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="ticker">Avg order value</div>
+          <div class="num text-[34px] md:text-[44px] text-ink-900 mt-2">${a.aov ? fmtIDR(Math.round(a.aov)) : '—'}</div>
+          <div class="mt-3 text-[11.5px] text-ink-700">per pesanan</div>
+        </div>
+        <div class="stat-card">
+          <div class="ticker">Item terjual</div>
+          <div class="num text-[34px] md:text-[44px] text-ink-900 mt-2">${a.itemsSold}</div>
+          <div class="mt-3 text-[11.5px] text-ink-700">${a.orderCount ? (a.itemsSold/a.orderCount).toFixed(1) : '0'} item per pesanan</div>
+        </div>
+      </div>
+
+      <!-- Daily trend + category donut -->
+      <div class="mt-10 grid grid-cols-12 gap-6">
+        <div class="col-span-12 lg:col-span-8 chart-card">
+          <div class="flex items-baseline justify-between gap-4 mb-5">
+            <div>
+              <div class="chart-sub">Tren Revenue Harian</div>
+              <div class="chart-title mt-1">${range} hari terakhir</div>
+            </div>
+            <div class="text-right">
+              <div class="chart-sub">Hari terbaik</div>
+              <div class="font-mono text-[12.5px] text-ink-900 mt-1">${fmtIDR(Math.max(...a.days.map(d=>d.value), 0))}</div>
+            </div>
+          </div>
+          ${lineChart(a.days)}
+        </div>
+        <div class="col-span-12 lg:col-span-4 chart-card">
+          <div class="mb-5">
+            <div class="chart-sub">Revenue per Kategori</div>
+            <div class="chart-title mt-1">Periode aktif</div>
+          </div>
+          ${donutChart(a.categories)}
+        </div>
+      </div>
+
+      <!-- Top products + insights -->
+      <div class="mt-8 grid grid-cols-12 gap-6">
+        <div class="col-span-12 lg:col-span-7 chart-card">
+          <div class="mb-5">
+            <div class="chart-sub">Top Performer</div>
+            <div class="chart-title mt-1">6 produk paling laku</div>
+          </div>
+          ${topProductsList(a.topProducts)}
+        </div>
+        <div class="col-span-12 lg:col-span-5 chart-card">
+          <div class="mb-5">
+            <div class="chart-sub">Insight strategis</div>
+            <div class="chart-title mt-1">Rekomendasi tindak lanjut</div>
+          </div>
+          <div>
+            ${insights.map(ins => `
+              <div class="insight-row">
+                <div class="insight-icon ${ins.cls}">${ins.icon}</div>
+                <div class="flex-1 text-[13px]">
+                  <div class="text-ink-900">${ins.label}</div>
+                  <div class="text-ink-700/85 mt-0.5">${ins.text}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly bar -->
+      <div class="mt-8 chart-card">
+        <div class="flex items-baseline justify-between gap-4 mb-5">
+          <div>
+            <div class="chart-sub">Tren Bulanan</div>
+            <div class="chart-title mt-1">12 bulan terakhir</div>
+          </div>
+          <div class="text-right">
+            <div class="chart-sub">Total revenue</div>
+            <div class="font-mono text-[12.5px] text-ink-900 mt-1">${fmtIDR(a.months.reduce((s,m)=>s+m.value,0))}</div>
+          </div>
+        </div>
+        ${barChart(a.months)}
+      </div>
+
+      <!-- Yearly summary -->
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+        ${a.years.map((y, i) => `
+          <div class="chart-card">
+            <div class="ticker">Tahun ${y.label}</div>
+            <div class="num text-[28px] md:text-[34px] text-ink-900 mt-2">${fmtIDR(y.value)}</div>
+            <div class="mt-2 text-[12px] text-ink-700">${y.orders} pesanan</div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+    ${footerHTML()}
+  `;
+  bindReveals();
+}
+
 function viewAdmin() {
   if (!requireAdmin()) return;
   const products = Store.products;
@@ -2170,6 +2709,7 @@ function viewAdmin() {
       <div class="mt-16 flex flex-wrap items-center gap-2 border-b border-ink-900/10 pb-4">
         <a href="#/admin" class="tab active">Produk</a>
         <a href="#/admin/orders" class="tab">Pesanan</a>
+        <a href="#/admin/analytics" class="tab">Analisis</a>
         <div class="ml-auto">
           <button onclick="openProductEditor()" data-magnet class="magnet press inline-flex items-center gap-2 rounded-full bg-ink-900 text-cream-50 pl-4 pr-3 py-2 text-[13px]">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
@@ -2232,6 +2772,7 @@ function viewAdminOrders() {
       <div class="mt-12 flex items-center gap-2 border-b border-ink-900/10 pb-4">
         <a href="#/admin" class="tab">Produk</a>
         <a href="#/admin/orders" class="tab active">Pesanan</a>
+        <a href="#/admin/analytics" class="tab">Analisis</a>
       </div>
 
       ${orders.length === 0 ? `
@@ -2643,6 +3184,7 @@ function route() {
   if (path.startsWith('/orders/')) return viewOrderDetail(path.split('/')[2]);
   if (path === '/admin') return viewAdmin();
   if (path === '/admin/orders') return viewAdminOrders();
+  if (path === '/admin/analytics') return viewAdminAnalytics();
   if (path === '/locations') return viewLocations();
   if (path === '/about') return viewAbout();
 
